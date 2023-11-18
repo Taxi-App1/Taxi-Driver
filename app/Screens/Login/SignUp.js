@@ -21,8 +21,10 @@ const SignUp = ({ navigation }) => {
   const [data, setData] = useState({
     first_name: "",
     last_name: "",
-    email: "",
     phone: "",
+    car_type: "",
+    car_color: "",
+    car_plate: "",
     password: "",
     confirm_password: "",
     image: "",
@@ -31,7 +33,9 @@ const SignUp = ({ navigation }) => {
   const [error, setError] = useState({
     first_name: "",
     last_name: "",
-    email: "",
+    car_type: "",
+    car_color: "",
+    car_plate: "",
     phone: "",
     password: "",
     confirm_password: "",
@@ -40,10 +44,12 @@ const SignUp = ({ navigation }) => {
 
   const firstNameRef = useRef();
   const lastNameRef = useRef();
-  const emailRef = useRef();
+  const phoneRef = useRef();
+  const carTypeRef = useRef();
+  const carColorRef = useRef();
+  const carPlateRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
-  const phoneRef = useRef();
 
   const inputFields = [
     {
@@ -62,17 +68,7 @@ const SignUp = ({ navigation }) => {
       key: "last_name",
       error: error.last_name,
       ref: lastNameRef,
-      onSubmitEditing: () => emailRef.current.focus(),
-    },
-    {
-      label: `${i18n.t("signUpDriver.input.email.label")}`,
-      placeholder: `${i18n.t("signUpDriver.input.email.placeholder")}`,
-      value: data.email,
-      key: "email",
-      error: error.email,
-      ref: emailRef,
       onSubmitEditing: () => phoneRef.current.focus(),
-      autoCapitalize: "none",
     },
     {
       label: `${i18n.t("signUpDriver.input.phone.label")}`,
@@ -82,6 +78,34 @@ const SignUp = ({ navigation }) => {
       error: error.phone,
       keyboardType: "numeric",
       ref: phoneRef,
+      onSubmitEditing: () => carTypeRef.current.focus(),
+    },
+    {
+      label: `${i18n.t("signUpDriver.input.car_type.label")}`,
+      placeholder: `${i18n.t("signUpDriver.input.car_type.placeholder")}`,
+      value: data.car_type,
+      key: "car_type",
+      error: error.car_type,
+      ref: carTypeRef,
+      onSubmitEditing: () => carColorRef.current.focus(),
+    },
+    {
+      label: `${i18n.t("signUpDriver.input.car_color.label")}`,
+      placeholder: `${i18n.t("signUpDriver.input.car_color.placeholder")}`,
+      value: data.car_color,
+      key: "car_color",
+      error: error.car_color,
+      ref: carColorRef,
+      onSubmitEditing: () => carPlateRef.current.focus(),
+    },
+    {
+      label: `${i18n.t("signUpDriver.input.car_plate.label")}`,
+      placeholder: `${i18n.t("signUpDriver.input.car_plate.placeholder")}`,
+      value: data.car_plate,
+      key: "car_plate",
+      error: error.car_plate,
+      keyboardType: "numeric",
+      ref: carPlateRef,
       onSubmitEditing: () => passwordRef.current.focus(),
     },
     {

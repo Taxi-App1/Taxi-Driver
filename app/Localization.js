@@ -15,13 +15,21 @@ export const translations = {
           label: "Last Name",
           placeholder: "Enter your last name",
         },
-        email: {
-          label: "Email",
-          placeholder: "Enter your email address",
-        },
         phone: {
           label: "Phone Number",
           placeholder: "Enter your phone number",
+        },
+        car_type: {
+          label: "Car Type",
+          placeholder: "Enter your car type",
+        },
+        car_color: {
+          label: "Car Color",
+          placeholder: "Enter your car color",
+        },
+        car_plate: {
+          label: "Car Plate",
+          placeholder: "Enter your car plate",
         },
         password: {
           label: "Password",
@@ -40,10 +48,6 @@ export const translations = {
         last_name: {
           empty: "Please enter your last name",
           length: "Last name should be at least 3 characters",
-        },
-        email: {
-          empty: "Please enter your email address",
-          invalid: "Invalid email address",
         },
         phone: {
           empty: "Please enter your phone number",
@@ -95,14 +99,22 @@ export const translations = {
           label: "الإسم الأخير",
           placeholder: "ادخل إسمك الأخير",
         },
-        email: {
-          label: "ألبريد الإلكتروني",
-          placeholder: "ادخل بريدك الإلكتروني",
-        },
         phone: {
           label: "رقم الهاتف",
           placeholder: "ادخل رقم هاتفك",
           inUse: "رقم الهاتف هذا قيد الاستخدام بالفعل. الرجاء اختيار رقم آخر.",
+        },
+        car_type: {
+          label: "نوع السيارة",
+          placeholder: "ادخل نوع سيارتك",
+        },
+        car_color: {
+          label: "لون السيارة",
+          placeholder: "ادخل لون سيارتك",
+        },
+        car_plate: {
+          label: "نمرة السيارة(اختياري):",
+          placeholder: "ادحل نمرة سيارتك",
         },
         password: {
           label: "كلمة السر",
@@ -121,10 +133,6 @@ export const translations = {
         last_name: {
           empty: "الرجاء إدخال الإسم الأخير",
           length: "يجب أن يحتوي الإسم الثاني على الأقل ثلاث أحرف",
-        },
-        email: {
-          empty: "الرجاء إدخال البريد الإلكتروني",
-          invalid: "بريد الكتروني غير صالح",
         },
         phone: {
           empty: "الرجاء إدخال رقم الهاتف",
