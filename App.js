@@ -1,20 +1,31 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Text, View } from "react-native";
+import { useFonts } from "expo-font";
+import { NavigationContainer } from "@react-navigation/native";
+import SignNav from "./app/Screens/Login/SignNav";
 
 export default function App() {
+  const [fontsLoaded] = useFonts({
+    "Agrandi-Regular": require("./app/Fonts/Agrandir-Regular.otf"),
+    "Agrandi-TextBold": require("./app/Fonts/Agrandir-TextBold.otf"),
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  // if (loading) {
+  //   return (
+  //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+  //       <ActivityIndicator size={"large"} color={colors.primaryYellow} />
+  //     </View>
+  //   );
+  // }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <StatusBar style="light" />
+      <SignNav />
+    </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

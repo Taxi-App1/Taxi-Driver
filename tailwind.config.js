@@ -1,11 +1,23 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
+    "./App.{js,jsx,ts,tsx}",
     "./app/**/*.{js,jsx,ts,tsx}",
     "./<custom directory>/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        Primary: "#212429",
+        secondary: "#DCDFE4",
+        primaryYellow: "#ffb200",
+        secondaryYellow: "#ffd403",
+      },
+      fontFamily: {
+        regular: "Agrandi-Regular",
+        boldText: "Agrandi-TextBold",
+      },
+    },
   },
   plugins: [],
 };
