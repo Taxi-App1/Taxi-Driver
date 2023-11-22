@@ -10,11 +10,9 @@ import { colors } from "../../ReusableTools/css";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "react-native";
-// import { I18nContext } from "../../Context/I18n";
 
 const SignUp = ({ navigation }) => {
   const { i18n } = i18nStore;
-  // const { i18n} = useContext(I18nContext);
 
   const [imageData, setImageData] = useState(null);
   const [submitting, setSubmitting] = useState(false);
@@ -24,7 +22,6 @@ const SignUp = ({ navigation }) => {
     phone: "",
     car_type: "",
     car_color: "",
-    car_plate: "",
     password: "",
     confirm_password: "",
     image: "",
@@ -35,7 +32,6 @@ const SignUp = ({ navigation }) => {
     last_name: "",
     car_type: "",
     car_color: "",
-    car_plate: "",
     phone: "",
     password: "",
     confirm_password: "",
@@ -47,7 +43,6 @@ const SignUp = ({ navigation }) => {
   const phoneRef = useRef();
   const carTypeRef = useRef();
   const carColorRef = useRef();
-  const carPlateRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
 
@@ -96,16 +91,6 @@ const SignUp = ({ navigation }) => {
       key: "car_color",
       error: error.car_color,
       ref: carColorRef,
-      onSubmitEditing: () => carPlateRef.current.focus(),
-    },
-    {
-      label: `${i18n.t("signUpDriver.input.car_plate.label")}`,
-      placeholder: `${i18n.t("signUpDriver.input.car_plate.placeholder")}`,
-      value: data.car_plate,
-      key: "car_plate",
-      error: error.car_plate,
-      keyboardType: "numeric",
-      ref: carPlateRef,
       onSubmitEditing: () => passwordRef.current.focus(),
     },
     {
@@ -172,10 +157,11 @@ const SignUp = ({ navigation }) => {
       if (
         !data.first_name &&
         !data.last_name &&
-        !data.email &&
+        !data.phone &&
+        !data.car_type &&
+        !data.car_color &&
         !data.password &&
-        !data.confirm_password &&
-        !data.phone
+        !data.confirm_password
       ) {
         Toast.show({
           type: "error",
@@ -215,21 +201,32 @@ const SignUp = ({ navigation }) => {
         emptyFields.push("First Name");
       }
 
-      if (!data.email) {
+      if (!data.car_type) {
         setError((prevErrors) => ({
           ...prevErrors,
-          email: `${i18n.t("signUpDriver.error.email.empty")}`,
+          car_type: `${i18n.t("signUpDriver.error.car_type.empty")}`,
         }));
-        emptyFields.push("Email");
-      } else if (data.email.trim() !== "") {
-        const emailRegex = /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/;
-        if (!emailRegex.test(data.email)) {
-          setError((prevErrors) => ({
-            ...prevErrors,
-            email: `${i18n.t("signUpDriver.error.email.invalid")}`,
-          }));
-          emptyFields.push("Email");
-        }
+        emptyFields.push("Car Type");
+      } else if (data.car_type.length < 3) {
+        setError((prevErrors) => ({
+          ...prevErrors,
+          car_type: `${i18n.t("signUpDriver.error.car_type.length")}`,
+        }));
+        emptyFields.push("Car Type");
+      }
+
+      if (!data.car_color) {
+        setError((prevErrors) => ({
+          ...prevErrors,
+          car_color: `${i18n.t("signUpDriver.error.car_color.empty")}`,
+        }));
+        emptyFields.push("Car Color");
+      } else if (data.car_color.length < 3) {
+        setError((prevErrors) => ({
+          ...prevErrors,
+          car_color: `${i18n.t("signUpDriver.error.car_color.length")}`,
+        }));
+        emptyFields.push("Car Color");
       }
 
       if (!data.password) {
@@ -292,8 +289,9 @@ const SignUp = ({ navigation }) => {
 
       requestData.append("first_name", data.first_name.trim());
       requestData.append("last_name", data.last_name.trim());
-      requestData.append("email", data.email.trim());
       requestData.append("phone_number", data.phone.trim());
+      requestData.append("car_type", data.car_type.trim());
+      requestData.append("car_color", data.car_color.trim());
       requestData.append("password", data.password.trim());
 
       if (imageData) {
@@ -305,7 +303,7 @@ const SignUp = ({ navigation }) => {
       }
 
       const resp = await axios.post(
-        `${process.env.EXPO_PUBLIC_API_URL}user/registerUser`,
+        `${process.env.EXPO_PUBLIC_API_URL}driver/registerDriver`,
         requestData
       );
 
@@ -335,7 +333,7 @@ const SignUp = ({ navigation }) => {
         type: "success",
         text1: `${i18n.t("toast.success.registered")}`,
       });
-
+ 
       setSubmitting(false);
     } catch (error) {
       console.log("handel submit sign up error", error);

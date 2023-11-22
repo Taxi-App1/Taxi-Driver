@@ -1,8 +1,10 @@
 import { StatusBar } from "expo-status-bar";
-import { Text, View } from "react-native";
+import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import SignNav from "./app/Screens/Login/SignNav";
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -22,10 +24,12 @@ export default function App() {
   //   );
   // }
 
+
   return (
     <NavigationContainer>
       <StatusBar style="light" />
       <SignNav />
+      <Toast />
     </NavigationContainer>
   );
 }

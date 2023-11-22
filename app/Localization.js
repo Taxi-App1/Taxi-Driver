@@ -3,7 +3,7 @@ export const translations = {
     cancel: "cancel",
     signNav: {
       signIn: "Sign In",
-      signUp: "Sing Up",
+      signUp: "Sign Up",
     },
     signUpDriver: {
       input: {
@@ -55,6 +55,15 @@ export const translations = {
           inUse:
             "This phone number is already in use. Please choose a different one.",
         },
+        car_type: {},
+        car_color: {
+          empty: "Please enter your car color",
+          length: "Car color should be at least 3 characters",
+        },
+        car_plate: {
+          empty: "Please enter your car plate number",
+          length: "Car plate should be at least 6 numbers",
+        },
         password: {
           emtpy: "Please enter your password",
           invalid: "Password should contain at least 8 characters.",
@@ -82,12 +91,25 @@ export const translations = {
       signIn: "Sign In",
       forgotPass: "Forgot password?",
     },
+    toast: {
+      error: {
+        emptyFields: "Please fill all fields",
+        submissionFailedTitle: "Form submission failed",
+        submissionFailedSubTitle: "Please check the errors and try again.",
+      },
+      success: {
+        registered: "Registered successfully",
+      },
+      info: {
+        noChanges: "No changes were made",
+      },
+    },
   },
   ar: {
     cancel: "إلغاء",
     signNav: {
       signIn: "تسجيل دخول",
-      signUp: "تسجيل حاب",
+      signUp: "تسجيل حساب",
     },
     signUpDriver: {
       input: {
@@ -138,6 +160,15 @@ export const translations = {
           empty: "الرجاء إدخال رقم الهاتف",
           invalid: "رقم هاتف غير صالح",
         },
+        car_type: {},
+        car_color: {
+          empty: "الرجاء إدخال لون السيارة",
+          length: "يجب أن لا يقل لون السيارة عن 3 أحرف",
+        },
+        car_plate: {
+          empty: "الرجاء إدخال رقم لوحة سيارتك",
+          length: "يجب أن تكون لوحة السيارة مكونة من 6 أرقام على الأقل",
+        },
         password: {
           emtpy: "الرجاء إدخال كلمة السر",
           invalid: "يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل.",
@@ -164,6 +195,20 @@ export const translations = {
       signUp: "اشترك",
       signIn: "تسجيل دخول",
       forgotPass: "نسيت كلمة السر؟",
+    },
+    toast: {
+      error: {
+        emptyFields: "الرجاء تعبئة جميع المجالات",
+        submissionFailedTitle: "فشل الإرسال",
+        submissionFailedSubTitle:
+          "الرجاء التأكد من الأخطاء وإعادة الإرسال مجدداً",
+      },
+      success: {
+        registered: "تم إنشاء الحساب",
+      },
+      info: {
+        noChanges: "لم يتم إجراء أية تغييرات",
+      },
     },
   },
 };

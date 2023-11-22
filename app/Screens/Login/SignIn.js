@@ -17,7 +17,7 @@ import { useEffect, useRef, useState } from "react";
 import { authStore } from "../../MobX/AuthStore";
 
 const SignIn = ({ navigation, route }) => {
-  const { login } = authStore;
+  const { login, userInfo } = authStore;
   const { i18n, changeLocale, locale } = i18nStore;
   // const { i18n, changeLocale, locale } = useContext(I18nContext);
 
@@ -31,7 +31,7 @@ const SignIn = ({ navigation, route }) => {
       });
     }
   }, [route.params]);
-
+  console.log("userInfo", userInfo);
   const [submitting, setSubmitting] = useState(false);
   const [data, setData] = useState({
     phone_number: "",
