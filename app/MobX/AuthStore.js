@@ -44,14 +44,14 @@ class AuthStore {
         `${process.env.EXPO_PUBLIC_API_URL}driver/login`,
         data
       );
-
-      this.setUserInfo(resp.data.findUser);
+      console.log(resp);
+      this.setUserInfo(resp.data.findDriver);
 
       this.setUserToken(resp.data.token);
 
       await AsyncStorage.setItem(
         "pickmUserInfo",
-        JSON.stringify(resp.data.findUser)
+        JSON.stringify(resp.data.findDriver)
       );
 
       await AsyncStorage.setItem("pickmuToken", resp.data.token);

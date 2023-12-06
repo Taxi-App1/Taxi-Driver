@@ -31,7 +31,7 @@ const SignIn = ({ navigation, route }) => {
       });
     }
   }, [route.params]);
-  console.log("userInfo", userInfo);
+
   const [submitting, setSubmitting] = useState(false);
   const [data, setData] = useState({
     phone_number: "",

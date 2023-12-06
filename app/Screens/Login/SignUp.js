@@ -1,4 +1,4 @@
-import React, { useState, useRef, useContext, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { FieldsetInput } from "../../ReusableTools/FieldSetInput";
 import { Button } from "../../ReusableTools/Button";
@@ -301,39 +301,32 @@ const SignUp = ({ navigation }) => {
           name: `image.jpeg`,
         });
       }
-
+      console.log(`${process.env.EXPO_PUBLIC_API_URL}driver/registerDriver`);
       const resp = await axios.post(
         `${process.env.EXPO_PUBLIC_API_URL}driver/registerDriver`,
         requestData
       );
-
-      // return an error if the user entered an existing phone number
-      if (resp.status === 400) {
-        setSubmitting(false);
-
-        setError((prevErrors) => ({
-          ...prevErrors,
-          phone: `${i18n.t("signUpDriver.error.phone.inUse")}`,
-        }));
-
-        Toast.show({
-          type: "error",
-          text1: `${i18n.t("toast.error.submissionFailedTitle")}`,
-          text2: `${i18n.t("toast.error.submissionFailedSubTitle")}`,
-        });
-        return;
-      }
 
       navigation.navigate(`${i18n.t("signNav.signIn")}`, {
         phone: data.phone,
         password: data.password,
       });
 
+      setData({
+        first_name: "",
+        last_name: "",
+        phone: "",
+        car_type: "",
+        car_color: "",
+        password: "",
+        confirm_password: "",
+      });
+
       Toast.show({
         type: "success",
         text1: `${i18n.t("toast.success.registered")}`,
       });
- 
+
       setSubmitting(false);
     } catch (error) {
       console.log("handel submit sign up error", error);
