@@ -3,10 +3,12 @@ import { Toast } from "react-native-toast-message/lib/src/Toast";
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import SignNav from "./app/Screens/Login/SignNav";
-import { useEffect } from "react";
-import axios from "axios";
+import DriverNav from "./app/Screens/Driver/DriverNav";
+import { authStore } from "./app/MobX/AuthStore";
 
 export default function App() {
+  const { token, loading } = authStore;
+
   const [fontsLoaded] = useFonts({
     "Agrandi-Regular": require("./app/Fonts/Agrandir-Regular.otf"),
     "Agrandi-TextBold": require("./app/Fonts/Agrandir-TextBold.otf"),
@@ -16,19 +18,18 @@ export default function App() {
     return null;
   }
 
-  // if (loading) {
-  //   return (
-  //     <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-  //       <ActivityIndicator size={"large"} color={colors.primaryYellow} />
-  //     </View>
-  //   );
-  // }
-
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator size={"large"} color={colors.primaryYellow} />
+      </View>
+    );
+  }
 
   return (
     <NavigationContainer>
       <StatusBar style="light" />
-      <SignNav />
+      {token ? <DriverNav /> : <SignNav />}
       <Toast />
     </NavigationContainer>
   );
