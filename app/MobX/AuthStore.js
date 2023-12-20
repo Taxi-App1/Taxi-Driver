@@ -44,7 +44,7 @@ class AuthStore {
         `${process.env.EXPO_PUBLIC_API_URL}driver/login`,
         data
       );
-      console.log(resp);
+
       this.setUserInfo(resp.data.findDriver);
 
       this.setUserToken(resp.data.token);
