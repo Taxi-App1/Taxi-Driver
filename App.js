@@ -5,8 +5,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import SignNav from "./app/Screens/Login/SignNav";
 import DriverNav from "./app/Screens/Driver/DriverNav";
 import { authStore } from "./app/MobX/AuthStore";
+import { colors } from "./app/ReusableTools/css";
+import { View } from "react-native";
+import { observer } from "mobx-react";
 
-export default function App() {
+export default App = observer(() => {
   const { token, loading } = authStore;
 
   const [fontsLoaded] = useFonts({
@@ -28,9 +31,9 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <StatusBar style="light" />
+      <StatusBar style="dark" />
       {token ? <DriverNav /> : <SignNav />}
       <Toast />
     </NavigationContainer>
   );
-}
+});

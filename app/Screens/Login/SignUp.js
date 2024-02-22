@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { View, TouchableOpacity, Text, StyleSheet } from "react-native";
-import { FieldsetInput } from "../../ReusableTools/FieldSetInput";
+import { ReusableInput } from "../../ReusableTools/ReusableInput";
 import { Button } from "../../ReusableTools/Button";
 import Toast from "react-native-toast-message";
 import { i18nStore } from "../../MobX/I18nStore";
@@ -347,7 +347,7 @@ const SignUp = ({ navigation }) => {
       >
         {inputFields.map((input, index) => {
           return (
-            <FieldsetInput
+            <ReusableInput
               key={index}
               label={input.label}
               placeholder={input.placeholder}
@@ -360,6 +360,7 @@ const SignUp = ({ navigation }) => {
               onSubmitEditing={input.onSubmitEditing}
               returnKeyType={input.returnKeyType}
               autoCapitalize={input.autoCapitalize}
+              isBlue={true}
             />
           );
         })}
@@ -367,7 +368,7 @@ const SignUp = ({ navigation }) => {
         <View className="grid grid-flow-row auto-rows-max items-center my-3 gap-3">
           <Text className="text-base">{`${i18n.t(
             "signUpDriver.addImage.text"
-          )}`}</Text>
+          )}`}</Text> 
 
           <TouchableOpacity onPress={handleSelectImage} diasbled={submitting}>
             <View className="p-2" style={styles.selectButton}>
