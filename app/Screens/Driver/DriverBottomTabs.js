@@ -6,7 +6,7 @@ import { AntDesign, FontAwesome } from "@expo/vector-icons";
 // import components
 import Orders from "./Orders";
 import Profile from "./Profile";
-import { colors } from "../../ReusableTools/css";
+import { colors, fonts } from "../../ReusableTools/css";
 
 const DriverBottomTabs = () => {
   const BottomTab = createBottomTabNavigator();
@@ -18,6 +18,12 @@ const DriverBottomTabs = () => {
         headerTintColor: "white",
         headerStyle: {
           backgroundColor: colors.primary,
+        },
+        headerTitleStyle: {
+          fontFamily: fonts.regular,
+        },
+        tabBarLabelStyle: {
+          fontFamily: fonts.regular,
         },
       })}
     >

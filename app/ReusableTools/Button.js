@@ -1,19 +1,34 @@
 import { View, Text, StyleSheet, Pressable, Platform } from "react-native";
 import { colors, fonts } from "./css";
 
-export const Button = ({ text, onPress, disabled }) => {
+export const Button = ({
+  text,
+  onPress,
+  disabled,
+  isTransparent,
+  cars,
+  cancel,
+}) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, cars && { marginHorizontal: 20 }]}>
       <Pressable
-        style={({ pressed }) => [pressed && styles.buttonPressed]}
+        style={({ pressed }) => [
+          pressed && styles.buttonPressed,
+          styles.buttno,
+        ]}
         android_ripple={{ color: "#ccc" }}
         onPress={onPress}
         disabled={disabled}
       >
         <View
-          style={[styles.buttonContainer, disabled && { backgroundColor: colors.primaryYellow }]}
+          style={[
+            styles.buttonContainer,
+            disabled && { backgroundColor: colors.accent },
+            isTransparent && styles.transparent,
+            cancel && { borderRadius: 50 },
+          ]}
         >
-          <Text style={styles.text} className="uppercase">
+          <Text style={[styles.text, isTransparent && styles.transparentText]}>
             {text}
           </Text>
         </View>
@@ -26,27 +41,31 @@ const styles = StyleSheet.create({
   container: {
     marginHorizontal: 40,
     marginVertical: 10,
-    elevation: 3,
-    shadowColor: "black",
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 5 },
-    shadowRadius: 5,
+    borderRadius: 15,
     overflow: Platform.OS === "android" ? "hidden" : "visible",
-    borderRadius: Platform.OS === "android" ? 100 : 0,
   },
   buttonContainer: {
-    backgroundColor: "#ffd403",
+    backgroundColor: colors.accent,
     paddingHorizontal: 40,
-    paddingVertical: 15,
+    paddingVertical: 20,
     alignItems: "center",
-    borderRadius: Platform.OS === "ios" ? 100 : 0,
+    borderRadius: 15,
+    overflow: Platform.OS === "android" ? "hidden" : "visible",
   },
   text: {
-    color: "black",
+    color: "white",
     fontFamily: fonts.regular,
-    fontSize: 16,
+    fontSize: 20,
   },
   buttonPressed: {
     opacity: 0.7,
+  },
+  transparent: {
+    backgroundColor: "transparent",
+    borderColor: colors.primary,
+    borderWidth: 1,
+  },
+  transparentText: {
+    color: colors.primary,
   },
 });

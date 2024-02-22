@@ -5,6 +5,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import SignNav from "./app/Screens/Login/SignNav";
 import DriverNav from "./app/Screens/Driver/DriverNav";
 import { authStore } from "./app/MobX/AuthStore";
+import { colors } from "./app/ReusableTools/css";
+import { View } from "react-native";
 
 export default function App() {
   const { token, loading } = authStore;

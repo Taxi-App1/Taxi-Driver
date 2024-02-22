@@ -1,8 +1,10 @@
 export const colors = {
-  primary: "#212429",
-  secondary: "#DCDFE4",
-  primaryYellow: "#ffb200",
-  secondaryYellow: "#ffd403",
+  primary: "#3886EF",
+  secondary: "#E0EDEF",
+  accent: "#262262",
+  lightBlue: "#E0EDFE",
+  headers: "#CBE0FB",
+  yellow: "#FAE90B",
 };
 
 export const fonts = {
