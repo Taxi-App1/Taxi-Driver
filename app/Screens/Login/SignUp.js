@@ -360,6 +360,7 @@ const SignUp = ({ navigation }) => {
               onSubmitEditing={input.onSubmitEditing}
               returnKeyType={input.returnKeyType}
               autoCapitalize={input.autoCapitalize}
+              isBlue={true}
             />
           );
         })}
@@ -367,7 +368,7 @@ const SignUp = ({ navigation }) => {
         <View className="grid grid-flow-row auto-rows-max items-center my-3 gap-3">
           <Text className="text-base">{`${i18n.t(
             "signUpDriver.addImage.text"
-          )}`}</Text>
+          )}`}</Text> 
 
           <TouchableOpacity onPress={handleSelectImage} diasbled={submitting}>
             <View className="p-2" style={styles.selectButton}>

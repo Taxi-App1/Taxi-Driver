@@ -65,6 +65,8 @@ const SignIn = ({ navigation, route }) => {
 
       setSubmitting(false);
     } catch (error) {
+      setSubmitting(false);
+
       console.log("handel submit sign up error", error);
       Toast.show({
         type: "error",
@@ -83,7 +85,7 @@ const SignIn = ({ navigation, route }) => {
         <View style={styles.contentView}>
           <View style={styles.roundedLogo}>
             <Image
-              source={require("../../Images/Icons/Untitled-5.png")}
+              source={require("../../Images/Icons/Untitled-6.png")}
               style={styles.image}
               accessibilityLabel="Logo of the app"
             />
@@ -116,11 +118,11 @@ const SignIn = ({ navigation, route }) => {
 
           <View>
             <View className="flex-1 items-center mb-1 justify-center flex-row">
-              <View className="h-[1px] bg-white w-[100px]" />
+              <View className="h-[2px] bg-Primary w-[100px]" />
 
-              <View className="bg-white w-[5px] h-[5px] rounded-full mx-2" />
+              <View className="bg-Primary w-[5px] h-[5px] rounded-full mx-2" />
 
-              <View className="h-[1px] bg-white w-[100px]" />
+              <View className="h-[2px] bg-Primary w-[100px]" />
             </View>
 
             <Button
@@ -134,11 +136,7 @@ const SignIn = ({ navigation, route }) => {
             />
 
             <Button
-              text={
-                submitting
-                  ? `${i18n.t("signUpDriver.button.submitting")}`
-                  : `${i18n.t("signInDriver.signUp")}`
-              }
+              text={`${i18n.t("signInDriver.signUp")}`}
               onPress={() => navigation.navigate(`${i18n.t("signNav.signUp")}`)}
               disabled={submitting}
               isTransparent={true}
