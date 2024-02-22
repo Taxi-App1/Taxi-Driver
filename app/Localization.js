@@ -122,6 +122,8 @@ export const translations = {
         editProfile: "Edit Profile",
         notifications: "Notifications",
         chat: "Chat",
+        about: "About",
+        support: "Support",
       },
     },
     setting: {
@@ -134,6 +136,13 @@ export const translations = {
         subTitleAlert: "Are you sure you want to delete the account?",
         AlertButtons: "Delete",
       },
+    },
+    about:
+      " Experience top-notch taxi and delivery services with Wobble. Easy to use, affordable prices, and available nationwide services in the whole country of Lebanon. (For customers) Join our vibrant community with zero commissions and flexible rules. Simply pay the monthly fee to activate your account and get an access to receive orders from customers. (For drivers who would like to have a job in Wobble) Welcome to the Wobble community  Where smooth rides await !",
+    support: {
+      contact: "Contact Us:",
+      phone: "Phone Number:",
+      insta: "Instagram:",
     },
   },
   ar: {
@@ -259,6 +268,8 @@ export const translations = {
         editProfile: "تعديل الملف الشخصي",
         notifications: "الإشعارات",
         chat: "الدردشة",
+        about: "حول التطبيق",
+        support: "الدعم",
       },
     },
     setting: {
@@ -271,6 +282,13 @@ export const translations = {
         subTitleAlert: "هل أنت متأكد أنك تريد حذف الحساب؟",
         AlertButtons: "حذف",
       },
+    },
+    about:
+      "استمتع بتجربة خدمات سيارات الأجرة والتوصيل من الدرجة الأولى مع Wobble. سهلة ل  الاستخدام والأسعار المعقولة والخدمات المتاحة على المستوى الوطني بشكل عام  بلد لبنان. (للعملاء) انضم إلى مجتمعنا النابض بالحياة مع الصفر اللجان والقواعد المرنة. ما عليك سوى دفع الرسوم الشهرية للتفعيل حسابك والحصول على إمكانية الوصول لتلقي الطلبات من العملاء. (ل السائقون الذين يرغبون في الحصول على وظيفة في Wobble) مرحبًا بكم في Wobble المجتمع حيث تنتظر الرحلات السلسة!",
+    support: {
+      contact: "تواصل معنا:",
+      phone: "رقم الهاتف:",
+      insta: "انتسغرام:",
     },
   },
 };

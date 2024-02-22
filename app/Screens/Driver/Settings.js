@@ -15,14 +15,14 @@ const Setting = () => {
       title: `${i18n.t("setting.about")}`,
       icon: <AntDesign name="exclamationcircleo" size={30} color="#7a7979" />,
       onPress: () => {
-        navigation.navigate(`${i18n.t("driverNav.screens.switchLang")}`);
+        navigation.navigate(`${i18n.t("driverNav.screens.about")}`);
       },
     },
     {
       title: `${i18n.t("setting.support")}`,
       icon: <AntDesign name="questioncircleo" size={30} color="#7a7979" />,
       onPress: () => {
-        navigation.navigate(`${i18n.t("driverNav.screens.switchLang")}`);
+        navigation.navigate(`${i18n.t("driverNav.screens.support")}`);
       },
     },
     {

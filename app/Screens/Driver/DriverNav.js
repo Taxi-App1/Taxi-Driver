@@ -9,6 +9,8 @@ import HeaderTitle from "../../ReusableTools/HeaderTitle";
 import Orders from "./Orders";
 import Setting from "./Settings";
 import SwitchLang from "./SwitchLang";
+import About from "./About";
+import Support from "./Support";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -75,7 +77,22 @@ const DriverNav = () => {
   };
 
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={({ route }) => ({
+        header: () => {
+          return (
+            <HeaderTitle
+              title={route.name}
+              isChat={
+                route.name === `${i18n.t("userNav.screens.chat")}`
+                  ? true
+                  : false
+              }
+            />
+          );
+        },
+      })}
+    >
       <Stack.Screen
         name="Back"
         component={DrawerScreens}
@@ -85,6 +102,16 @@ const DriverNav = () => {
       <Stack.Screen
         name={i18n.t("driverNav.screens.switchLang")}
         component={SwitchLang}
+      />
+
+      <Stack.Screen
+        name={i18n.t("driverNav.screens.about")}
+        component={About}
+      />
+
+      <Stack.Screen
+        name={i18n.t("driverNav.screens.support")}
+        component={Support}
       />
     </Stack.Navigator>
   );
