@@ -7,11 +7,17 @@ const Support = () => {
 
   return (
     <View className="p-2">
-      <Text className="font-regular text-[20px] underline">{i18n.t("support.contact")}</Text>
+      <Text className="font-regular text-[20px] underline">
+        {i18n.t("support.contact")}
+      </Text>
 
-      <Text className="font-regular text-[20px]">{i18n.t("support.phone")} 81076935</Text>
+      <Text className="font-regular text-[20px]">
+        {i18n.t("support.phone")} 81076935
+      </Text>
 
-      <Text className="font-regular text-[20px]">{i18n.t("support.insta")} </Text>
+      <Text className="font-regular text-[20px]">
+        {i18n.t("support.insta")}
+      </Text>
     </View>
   );
 };
