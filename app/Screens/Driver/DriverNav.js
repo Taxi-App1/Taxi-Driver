@@ -6,6 +6,9 @@ import { colors, fonts } from "../../ReusableTools/css";
 import DrawerContent from "../../Components/DrawerContent";
 import Map from "./Map";
 import HeaderTitle from "../../ReusableTools/HeaderTitle";
+import Orders from "./Orders";
+import Setting from "./Settings";
+import SwitchLang from "./SwitchLang";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -57,6 +60,16 @@ const DriverNav = () => {
             headerShown: false,
           }}
         />
+
+        <Drawer.Screen
+          name={i18n.t("driverNav.screens.rides")}
+          component={Orders}
+        />
+
+        <Drawer.Screen
+          name={i18n.t("driverNav.screens.settings")}
+          component={Setting}
+        />
       </Drawer.Navigator>
     );
   };
@@ -67,6 +80,11 @@ const DriverNav = () => {
         name="Back"
         component={DrawerScreens}
         options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name={i18n.t("driverNav.screens.switchLang")}
+        component={SwitchLang}
       />
     </Stack.Navigator>
   );

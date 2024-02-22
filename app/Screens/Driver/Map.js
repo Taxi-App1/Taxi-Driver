@@ -14,6 +14,7 @@ import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
 import LocationStore from "../../MobX/LocationStore";
 import { colors } from "../../ReusableTools/css";
 import { DrawerActions } from "@react-navigation/native";
+import { observer } from "mobx-react";
 
 const { width, height } = Dimensions.get("window");
 
@@ -102,7 +103,7 @@ const Map = ({ navigation }) => {
   );
 };
 
-export default Map;
+export default observer(Map);
 
 const styles = StyleSheet.create({
   container: {

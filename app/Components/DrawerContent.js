@@ -44,7 +44,7 @@ const DrawerContent = () => {
       ),
       text: `${i18n.t("drawerContent.rides")}`,
       onPress: () => {
-        navigation.navigate(`${i18n.t("userNav.screens.rides")}`);
+        navigation.navigate(`${i18n.t("driverNav.screens.rides")}`);
         setActiveScreen("Rides");
       },
     },
@@ -59,7 +59,7 @@ const DrawerContent = () => {
       ),
       text: `${i18n.t("drawerContent.settings")}`,
       onPress: () => {
-        navigation.navigate(`${i18n.t("userNav.screens.settings")}`);
+        navigation.navigate(`${i18n.t("driverNav.screens.settings")}`);
         setActiveScreen("Setting");
       },
     },
@@ -102,7 +102,7 @@ const DrawerContent = () => {
               <TouchableOpacity
                 onPress={() => {
                   navigation.navigate(
-                    `${i18n.t("userNav.screens.editProfile")}`
+                    `${i18n.t("driverNav.screens.editProfile")}`
                   );
                   setActiveScreen("");
                 }}
