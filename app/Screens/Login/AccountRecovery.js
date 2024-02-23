@@ -14,8 +14,8 @@ import { i18nStore } from "../../MobX/I18nStore";
 import { Button } from "../../ReusableTools/Button";
 import { colors } from "../../ReusableTools/css";
 import axios from "axios";
-import { showToast } from "../../ReusableTools/ShowToast";
 import Loading from "../../ReusableTools/Loading";
+import { showToast } from "../../ReusableTools/ShowToast";
 
 const AccountRecovery = () => {
   const navigation = useNavigation();

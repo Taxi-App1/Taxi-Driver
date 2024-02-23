@@ -21,7 +21,7 @@ import { authStore } from "../../MobX/AuthStore";
 import { i18nStore } from "../../MobX/I18nStore";
 import LocationStore from "../../MobX/LocationStore";
 import axios from "axios";
-import DriverData from "../../Components/UserData";
+import DriverData from "../../Components/DriverData";
 
 const { width, height } = Dimensions.get("window");
 

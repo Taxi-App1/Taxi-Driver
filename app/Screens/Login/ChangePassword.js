@@ -22,7 +22,7 @@ const ChangePassword = ({ route }) => {
 
   const insets = useSafeAreaInsets();
 
-  const { user_id } = route.params;
+  const { driver_id } = route.params;
 
   const { i18n } = i18nStore;
 
@@ -33,7 +33,7 @@ const ChangePassword = ({ route }) => {
     confirm_password: "",
   });
 
-  const ChangeUserPassword = async () => {
+  const ChangeDriverPassword = async () => {
     try {
       if (!data.password || !data.confirm_password) {
         showToast("error", `${i18n.t("toast.error.emptyFields")}`);
@@ -44,7 +44,10 @@ const ChangePassword = ({ route }) => {
         // Validate password format
         const passwordRegex = /^(?=.*[A-Za-z\d]).{8,}$/;
         if (!passwordRegex.test(data.password)) {
-          showToast("error", `${i18n.t("signUpUser.error.password.invalid")}`);
+          showToast(
+            "error",
+            `${i18n.t("signUpDriver.error.password.invalid")}`
+          );
 
           return;
         }
@@ -58,7 +61,7 @@ const ChangePassword = ({ route }) => {
       setIsLoading(true);
 
       await axios.post(
-        `${process.env.EXPO_PUBLIC_API_URL}user/updateUser/${user_id}`,
+        `${process.env.EXPO_PUBLIC_API_URL}driver/updateDriver/${driver_id}`,
         {
           password: data.password,
         }
@@ -70,8 +73,8 @@ const ChangePassword = ({ route }) => {
 
       navigation.navigate(`${i18n.t("signNav.signIn")}`);
     } catch (error) {
-      console.log("check user", error.message);
-      showToast("error", "User not found");
+      console.log("check driver", error.message);
+      showToast("error", "Driver not found");
     }
   };
 
@@ -136,7 +139,7 @@ const ChangePassword = ({ route }) => {
         <View className="mb-16">
           <Button
             text={`${i18n.t("submit")}`}
-            onPress={ChangeUserPassword}
+            onPress={ChangeDriverPassword}
             disabled={isLoading}
           />
         </View>

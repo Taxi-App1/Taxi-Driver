@@ -9,12 +9,12 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { Button } from "../../ReusableTools/Button";
 import { i18nStore } from "../../MobX/I18nStore";
 import axios from "axios";
-import { showToast } from "../../ReusableTools/ShowToast";
 import { authStore } from "../../MobX/AuthStore";
 import { observer } from "mobx-react";
+import { Button } from "../../ReusableTools/Button";
+import { showToast } from "../../ReusableTools/ShowToast";
 
 const OTP = ({ route }) => {
   const navigation = useNavigation();
