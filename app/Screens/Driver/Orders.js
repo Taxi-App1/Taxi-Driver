@@ -44,12 +44,15 @@ const Orders = () => {
   }
 
   const renderItems = ({ item }) => {
-    console.log("item", item);
     return (
       <View className="flex-1 justify-center items-center">
         <Text className="text-black font-regular">{item?.from}</Text>
+
         <Text className="text-black font-regular">{item?.to}</Text>
-        <Text className="text-black font-regular">{item?.user_id.first_name} {item?.user_id.last_name}</Text>
+
+        <Text className="text-black font-regular">
+          {item?.user_id.first_name} {item?.user_id.last_name}
+        </Text>
       </View>
     );
   };

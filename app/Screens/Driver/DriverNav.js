@@ -11,6 +11,8 @@ import Setting from "./Settings";
 import SwitchLang from "./SwitchLang";
 import About from "./About";
 import Support from "./Support";
+import Chat from "./Chat";
+import OTP from "./OTP";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -112,6 +114,19 @@ const DriverNav = () => {
       <Stack.Screen
         name={i18n.t("driverNav.screens.support")}
         component={Support}
+      />
+
+      <Stack.Screen
+        name={`${i18n.t("driverNav.screens.chat")}`}
+        component={Chat}
+      />
+
+      <Stack.Screen
+        name={`otp`}
+        component={OTP}
+        options={{
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   );

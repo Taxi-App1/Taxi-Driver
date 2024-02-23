@@ -144,6 +144,11 @@ export const translations = {
       phone: "Phone Number:",
       insta: "Instagram:",
     },
+    map: {
+      fetchLocation: "Fetching location",
+      loadingMap: "Loading map...",
+      notGranted: "Location permission not granted",
+    },
   },
   ar: {
     cancel: "إلغاء",
@@ -289,6 +294,11 @@ export const translations = {
       contact: "تواصل معنا:",
       phone: "رقم الهاتف:",
       insta: "انتسغرام:",
+    },
+    map: {
+      fetchLocation: "جارٍ تحديد الموقع",
+      loadingMap: "جارٍ تحميل الخريطة...",
+      notGranted: "لم يتم منح إذن تحديد الموقع",
     },
   },
 };

@@ -1,25 +1,36 @@
 import {
   ActivityIndicator,
+  Alert,
+  Animated,
   Dimensions,
+  Easing,
   KeyboardAvoidingView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Entypo } from "@expo/vector-icons";
 import MapView, { PROVIDER_GOOGLE, Marker } from "react-native-maps";
-import LocationStore from "../../MobX/LocationStore";
 import { colors } from "../../ReusableTools/css";
 import { DrawerActions } from "@react-navigation/native";
 import { observer } from "mobx-react";
+import { authStore } from "../../MobX/AuthStore";
+import { i18nStore } from "../../MobX/I18nStore";
+import LocationStore from "../../MobX/LocationStore";
+import axios from "axios";
+import DriverData from "../../Components/UserData";
 
 const { width, height } = Dimensions.get("window");
 
 const Map = ({ navigation }) => {
   const insets = useSafeAreaInsets();
+
+  const { userInfo } = authStore;
+
+  const { i18n } = i18nStore;
 
   const {
     locationNotGranted,
@@ -28,9 +39,81 @@ const Map = ({ navigation }) => {
     loading,
   } = LocationStore;
 
+  const [orderData, setOrderData] = useState(null);
+
   useEffect(() => {
     requestLocationPermissions();
+    changeComponentHeight(380);
+
+    // fetchOrder();
   }, []);
+
+  const changeComponentHeight = (height) => {
+    Animated.timing(animatedHeightComponent, {
+      toValue: height,
+      duration: 500,
+      easing: Easing.linear,
+      useNativeDriver: false,
+    }).start();
+  };
+
+  const animatedHeightComponent = useRef(new Animated.Value(height)).current;
+
+  const fetchOrder = async () => {
+    const intervalId = setInterval(async () => {
+      try {
+        const resp = await axios.get(
+          `${process.env.EXPO_PUBLIC_API_URL}order/getOrderForDriver/${userInfo?._id}`
+        );
+
+        if (resp?.data?.status === 404) {
+          return;
+        }
+
+        Alert.alert("Your got an order", "Do you want to take it?", [
+          {
+            text: `${i18n.t("cancel")}`,
+            style: "cancel",
+            onPress: async () => {
+              try {
+                await axios.put(
+                  `${process.env.EXPO_PUBLIC_API_URL}/order/updateOrder/${resp?.data?._id}`,
+                  {
+                    status: "Canceled",
+                  }
+                );
+              } catch (error) {
+                console.log("error in cancel order", error.message);
+              }
+            },
+          },
+          {
+            text: `${i18n.t("accept")}`,
+            onPress: async () => {
+              try {
+                await axios.put(
+                  `${process.env.EXPO_PUBLIC_API_URL}/order/updateOrder/${resp?.data?._id}`,
+                  {
+                    status: "Accepted",
+                  }
+                );
+
+                changeComponentHeight(380);
+
+                setOrderData(resp?.data);
+
+                clearInterval(intervalId);
+              } catch (error) {}
+            },
+          },
+        ]);
+      } catch (error) {
+        console.log("fetchOrderStatus error", error.message);
+
+        clearInterval(intervalId);
+      }
+    }, 2000); // Check the status every 5 seconds (adjust the interval as needed)
+  };
 
   const mapRef = useRef(MapView);
 
@@ -45,11 +128,12 @@ const Map = ({ navigation }) => {
     longitudeDelta: LONGITUDE_DELTA,
   };
 
+  // Loading state while waiting for location data
   if (loading) {
     return (
       <View style={styles.indicator}>
         <ActivityIndicator size={"large"} color={colors.primaryYellow} />
-        <Text>Loading map...</Text>
+        <Text>{i18n.t("map.loadingMap")}</Text>
       </View>
     );
   }
@@ -58,7 +142,7 @@ const Map = ({ navigation }) => {
     // Handle the case where location permission is not granted
     return (
       <View style={styles.indicator}>
-        <Text>Location permission not granted</Text>
+        <Text>{i18n.t("map.notGranted")}</Text>
       </View>
     );
   }
@@ -68,7 +152,7 @@ const Map = ({ navigation }) => {
     return (
       <View style={styles.indicator}>
         <ActivityIndicator size={"large"} color={colors.primary} />
-        <Text>Fetching location</Text>
+        <Text>{i18n.t("map.fetchLocation")}</Text>
       </View>
     );
   }
@@ -97,7 +181,22 @@ const Map = ({ navigation }) => {
           style={styles.map}
           ref={mapRef}
           mapType="standard"
-        ></MapView>
+        >
+          <Animated.View
+            style={[
+              styles.destinationContainer,
+              { height: animatedHeightComponent },
+            ]}
+          >
+            {orderData && (
+              <DriverData
+                driver_id={orderData?.driver_id}
+                user_id={orderData?.user_id}
+                destination={{ name: orderData?.to }}
+              />
+            )}
+          </Animated.View>
+        </MapView>
       </View>
     </KeyboardAvoidingView>
   );
