@@ -5,16 +5,15 @@ import {
   Image,
   TouchableOpacity,
   Platform,
-  ScrollView,
   KeyboardAvoidingView,
 } from "react-native";
 import { colors } from "../../ReusableTools/css";
-import { FieldsetInput } from "../../ReusableTools/FieldSetInput";
 import { Button } from "../../ReusableTools/Button";
 import { i18nStore } from "../../MobX/I18nStore";
 import Toast from "react-native-toast-message";
 import { useEffect, useRef, useState } from "react";
 import { authStore } from "../../MobX/AuthStore";
+import { ReusableInput } from "../../ReusableTools/ReusableInput";
 
 const SignIn = ({ navigation, route }) => {
   const { login, userInfo } = authStore;
@@ -66,6 +65,8 @@ const SignIn = ({ navigation, route }) => {
 
       setSubmitting(false);
     } catch (error) {
+      setSubmitting(false);
+
       console.log("handel submit sign up error", error);
       Toast.show({
         type: "error",
@@ -81,36 +82,26 @@ const SignIn = ({ navigation, route }) => {
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         enabled={false}
       >
-        <ScrollView contentContainerStyle={{ flex: 1 }}>
-          <View style={styles.backgroundView} />
-          <View style={styles.contentView}>
-            <View style={styles.roundedLogo}>
-              <Image
-                source={require("../../Images/logo.png")}
-                style={styles.image}
-                accessibilityLabel="Logo of the app"
-              />
-            </View>
-
-            <View className="my-6 items-center">
-              <Text className="font-boldText text-3xl">{`${i18n.t(
-                "signInDriver.title"
-              )}`}</Text>
-              <Text className="font-regular mt-2 text-gray-500">
-                {`${i18n.t("signInDriver.text")}`}
-              </Text>
-            </View>
-
-            <FieldsetInput
+        <View style={styles.contentView}>
+          <View style={styles.roundedLogo}>
+            <Image
+              source={require("../../Images/Icons/Untitled-6.png")}
+              style={styles.image}
+              accessibilityLabel="Logo of the app"
+            />
+          </View>
+          <View>
+            <ReusableInput
               value={data.phone_number}
               label={`${i18n.t("signUpDriver.input.phone.label")}`}
               placeholder={`${i18n.t("signUpDriver.input.phone.placeholder")}`}
               keyboardType="numeric"
               onChangeText={(value) => handleInputChange("phone_number", value)}
               onSubmitEditing={() => passwordRef.current.focus()}
+              isBlue={true}
             />
 
-            <FieldsetInput
+            <ReusableInput
               value={data.password}
               label={`${i18n.t("signUpDriver.input.password.label")}`}
               placeholder={`${i18n.t(
@@ -121,11 +112,18 @@ const SignIn = ({ navigation, route }) => {
               ref={passwordRef}
               onSubmitEditing={handleLogin}
               returnKeyType={"done"}
+              isBlue={true}
             />
+          </View>
 
-            <Text className="text-yellow-400 text-center my-2">
-              {`${i18n.t("signInDriver.forgotPass")}`}
-            </Text>
+          <View>
+            <View className="flex-1 items-center mb-1 justify-center flex-row">
+              <View className="h-[2px] bg-Primary w-[100px]" />
+
+              <View className="bg-Primary w-[5px] h-[5px] rounded-full mx-2" />
+
+              <View className="h-[2px] bg-Primary w-[100px]" />
+            </View>
 
             <Button
               text={
@@ -137,22 +135,20 @@ const SignIn = ({ navigation, route }) => {
               disabled={submitting}
             />
 
-            <View className="self-center pt-4 flex-row gap-1">
-              <Text style="text-center">{`${i18n.t(
-                "signInDriver.noAccount"
-              )}`}</Text>
-              <TouchableOpacity
-                onPress={() =>
-                  navigation.navigate(`${i18n.t("signNav.signUp")}`)
-                }
-              >
-                <Text className="text-yellow-400">{`${i18n.t(
-                  "signInDriver.signUp"
-                )}`}</Text>
-              </TouchableOpacity>
-            </View>
+            <Button
+              text={`${i18n.t("signInDriver.signUp")}`}
+              onPress={() => navigation.navigate(`${i18n.t("signNav.signUp")}`)}
+              disabled={submitting}
+              isTransparent={true}
+            />
 
-            <View className="flex-row gap-1 items-center justify-center mt-10">
+            <TouchableOpacity onPress={() => navigation.navigate("recovery")}>
+              <Text className="text-white text-center my-2 text-base">
+                {`${i18n.t("signInDriver.forgotPass")}`}
+              </Text>
+            </TouchableOpacity>
+
+            <View className="flex-row gap-1 items-center justify-center mt-1">
               <TouchableOpacity onPress={() => changeLocale("en")}>
                 <Text
                   style={[locale.includes("en") && styles.activeLanguageButton]}
@@ -160,7 +156,9 @@ const SignIn = ({ navigation, route }) => {
                   English
                 </Text>
               </TouchableOpacity>
+
               <Text>|</Text>
+
               <TouchableOpacity onPress={() => changeLocale("ar")}>
                 <Text
                   style={[locale.includes("ar") && styles.activeLanguageButton]}
@@ -170,7 +168,7 @@ const SignIn = ({ navigation, route }) => {
               </TouchableOpacity>
             </View>
           </View>
-        </ScrollView>
+        </View>
       </KeyboardAvoidingView>
     </View>
   );
@@ -179,34 +177,29 @@ const SignIn = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.primary,
   },
   backgroundView: {
     backgroundColor: "transparent",
     flex: 1,
   },
   contentView: {
-    position: "relative",
     flex: 5,
-    justifyContent: "center",
-    backgroundColor: "#ffffff",
+    justifyContent: "space-evenly",
     borderTopRightRadius: 25,
     borderTopLeftRadius: 25,
   },
   roundedLogo: {
-    position: "absolute",
-    top: -50,
-    width: 100,
+    width: 200,
     height: 100,
     alignSelf: "center",
   },
   image: {
     width: "100%",
-    borderRadius: 100,
     height: "100%",
+    resizeMode: "contain",
   },
   activeLanguageButton: {
-    color: colors.primaryYellow,
+    color: colors.primary,
   },
 });
 
