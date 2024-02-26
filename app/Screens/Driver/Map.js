@@ -5,6 +5,7 @@ import {
   Dimensions,
   Easing,
   KeyboardAvoidingView,
+  Platform,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -22,6 +23,7 @@ import { i18nStore } from "../../MobX/I18nStore";
 import LocationStore from "../../MobX/LocationStore";
 import axios from "axios";
 import DriverData from "../../Components/DriverData";
+import MapViewDirections from "react-native-maps-directions";
 
 const { width, height } = Dimensions.get("window");
 
@@ -41,12 +43,58 @@ const Map = ({ navigation }) => {
 
   const [orderData, setOrderData] = useState(null);
 
+  const mapRef = useRef(MapView);
+
   useEffect(() => {
     requestLocationPermissions();
+
     changeComponentHeight(380);
 
-    // fetchOrder();
+    fetchOrder();
   }, []);
+
+  useEffect(() => {
+    if (orderData) {
+      const traceRoute = () => {
+        const userPickup = {
+          latitude: USER_INITIAL_POSITION?.latitude,
+          longitude: USER_INITIAL_POSITION?.longitude,
+        };
+
+        const userDestination = {
+          latitude: USER_DESTINATION?.latitude,
+          longitude: USER_DESTINATION?.longitude,
+        };
+
+        {
+          Platform.OS === "android" &&
+            mapRef?.current?.fitToCoordinates([userPickup, userDestination], {
+              edgePadding,
+            });
+        }
+      };
+
+      traceRoute();
+
+      const moveTo = async (position) => {
+        const camera = await mapRef?.current?.getCamera();
+        if (camera) {
+          camera.center = position;
+          mapRef?.current?.animateCamera(camera, { duration: 1000 });
+        }
+      };
+      moveTo();
+    }
+  }, [orderData]);
+
+  const edgePaddingValue = 70;
+
+  const edgePadding = {
+    top: edgePaddingValue,
+    right: edgePaddingValue,
+    bottom: edgePaddingValue,
+    left: edgePaddingValue,
+  };
 
   const changeComponentHeight = (height) => {
     Animated.timing(animatedHeightComponent, {
@@ -70,7 +118,7 @@ const Map = ({ navigation }) => {
           return;
         }
 
-        Alert.alert("Your got an order", "Do you want to take it?", [
+        Alert.alert(`${i18n.t("map.gotOrder")}`, `${i18n.t("map.askAccept")}`, [
           {
             text: `${i18n.t("cancel")}`,
             style: "cancel",
@@ -115,8 +163,6 @@ const Map = ({ navigation }) => {
     }, 2000); // Check the status every 5 seconds (adjust the interval as needed)
   };
 
-  const mapRef = useRef(MapView);
-
   const ASPECT_RATIO = width / height;
   const LATITUDE_DELTA = 0.02;
   const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
@@ -157,6 +203,28 @@ const Map = ({ navigation }) => {
     );
   }
 
+  const USER_INITIAL_POSITION = {
+    latitude: orderData?.fromCoordinates?.lat,
+    longitude: orderData?.fromCoordinates?.long,
+    latitudeDelta: LATITUDE_DELTA,
+    longitudeDelta: LONGITUDE_DELTA,
+  };
+
+  const USER_DESTINATION = {
+    latitude: orderData?.toCoordinates?.lat,
+    longitude: orderData?.toCoordinates?.long,
+    latitudeDelta: LATITUDE_DELTA,
+    longitudeDelta: LONGITUDE_DELTA,
+  };
+
+  const traceRouteOnReady = (args) => {
+    if (args) {
+      setDistance(args.distance);
+
+      setDuration(args.duration);
+    }
+  };
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1, marginTop: insets.top }}
@@ -182,21 +250,32 @@ const Map = ({ navigation }) => {
           ref={mapRef}
           mapType="standard"
         >
+          {orderData && (
+            <MapViewDirections
+              origin={USER_INITIAL_POSITION}
+              destination={USER_DESTINATION}
+              apikey={process.env.EXPO_PUBLIC_MAP_API_KEY}
+              strokeColor={colors.primary}
+              strokeWidth={8}
+              onReady={traceRouteOnReady}
+            />
+          )}
+        </MapView>
+
+        {orderData && (
           <Animated.View
             style={[
               styles.destinationContainer,
               { height: animatedHeightComponent },
             ]}
           >
-            {orderData && (
-              <DriverData
-                driver_id={orderData?.driver_id}
-                user_id={orderData?.user_id}
-                destination={{ name: orderData?.to }}
-              />
-            )}
+            <DriverData
+              driver_id={orderData?.driver_id}
+              user_id={orderData?.user_id}
+              destination={{ name: orderData?.to }}
+            />
           </Animated.View>
-        </MapView>
+        )}
       </View>
     </KeyboardAvoidingView>
   );
@@ -241,5 +320,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 40,
     marginTop: "auto",
     backgroundColor: "white",
+    zIndex: 1000,
   },
 });

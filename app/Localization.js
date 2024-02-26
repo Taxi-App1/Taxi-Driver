@@ -148,6 +148,8 @@ export const translations = {
       fetchLocation: "Fetching location",
       loadingMap: "Loading map...",
       notGranted: "Location permission not granted",
+      gotOrder: "You got an order",
+      askAccept: "Do you want to take it?",
     },
   },
   ar: {
@@ -299,6 +301,8 @@ export const translations = {
       fetchLocation: "جارٍ تحديد الموقع",
       loadingMap: "جارٍ تحميل الخريطة...",
       notGranted: "لم يتم منح إذن تحديد الموقع",
+      gotOrder: "لقد تلقيتَ طلبية",
+      askAccept: "هل تريد أن توافق على هذه الطلبية؟",
     },
   },
 };
