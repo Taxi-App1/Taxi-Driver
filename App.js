@@ -6,7 +6,7 @@ import SignNav from "./app/Screens/Login/SignNav";
 import DriverNav from "./app/Screens/Driver/DriverNav";
 import { authStore } from "./app/MobX/AuthStore";
 import { colors } from "./app/ReusableTools/css";
-import { ActivityIndicatorBase, View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { observer } from "mobx-react";
 
 export default App = observer(() => {
@@ -24,7 +24,7 @@ export default App = observer(() => {
   if (loading) {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-        <ActivityIndicatorBase size={"large"} color={colors.primaryYellow} />
+        <ActivityIndicator size={"large"} color={colors.primaryYellow} />
       </View>
     );
   }

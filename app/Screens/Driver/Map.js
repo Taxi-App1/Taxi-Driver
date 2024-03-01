@@ -24,6 +24,7 @@ import LocationStore from "../../MobX/LocationStore";
 import axios from "axios";
 import DriverData from "../../Components/DriverData";
 import MapViewDirections from "react-native-maps-directions";
+import useFetch from "../../ReusableTools/UseFetch";
 
 const { width, height } = Dimensions.get("window");
 
@@ -43,14 +44,16 @@ const Map = ({ navigation }) => {
 
   const [orderData, setOrderData] = useState(null);
 
+  const { data: orderNotEnded } = useFetch(
+    `${process.env.EXPO_PUBLIC_API_URL}order/getDriverIsNotEndedOrder/${userInfo?._id}`
+  );
+
   const mapRef = useRef(MapView);
 
   useEffect(() => {
     requestLocationPermissions();
 
-    changeComponentHeight(380);
-
-    fetchOrder();
+    // fetchOrder();
   }, []);
 
   useEffect(() => {
@@ -269,11 +272,21 @@ const Map = ({ navigation }) => {
               { height: animatedHeightComponent },
             ]}
           >
-            <DriverData
-              driver_id={orderData?.driver_id}
-              user_id={orderData?.user_id}
-              destination={{ name: orderData?.to }}
-            />
+            {!orderNotEnded?.message === "All orders are ended" ? (
+              <DriverData
+                driver_id={orderNotEnded?.driver_id}
+                user_id={orderNotEnded?.user_id}
+                _id={orderNotEnded?._id}
+                destination={{ name: orderNotEnded?.to }}
+              />
+            ) : (
+              <DriverData
+                driver_id={orderData?.driver_id}
+                user_id={orderData?.user_id}
+                _id={orderData?._id}
+                destination={{ name: orderData?.to }}
+              />
+            )}
           </Animated.View>
         )}
       </View>

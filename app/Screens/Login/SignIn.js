@@ -16,7 +16,7 @@ import { authStore } from "../../MobX/AuthStore";
 import { ReusableInput } from "../../ReusableTools/ReusableInput";
 
 const SignIn = ({ navigation, route }) => {
-  const { login, userInfo } = authStore;
+  const { login } = authStore;
   const { i18n, changeLocale, locale } = i18nStore;
   // const { i18n, changeLocale, locale } = useContext(I18nContext);
 
@@ -67,7 +67,7 @@ const SignIn = ({ navigation, route }) => {
     } catch (error) {
       setSubmitting(false);
 
-      console.log("handel submit sign up error", error);
+      console.log("handel submit sign up error", error.message);
       Toast.show({
         type: "error",
         text1: error.message,
@@ -143,7 +143,7 @@ const SignIn = ({ navigation, route }) => {
             />
 
             <TouchableOpacity onPress={() => navigation.navigate("recovery")}>
-              <Text className="text-white text-center my-2 text-base">
+              <Text className="text-black text-center my-2 text-base">
                 {`${i18n.t("signInDriver.forgotPass")}`}
               </Text>
             </TouchableOpacity>
