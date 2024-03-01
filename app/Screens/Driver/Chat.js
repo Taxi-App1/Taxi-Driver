@@ -134,7 +134,7 @@ const Chat = ({ route }) => {
           style={styles.inputField}
           onChangeText={(text) => setTextMessage(text)}
           value={textMessage}
-          placeholder={i18n.t("chat.type")}
+          placeholder={i18n.t("chat.type")} 
         />
 
         <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>
@@ -155,12 +155,12 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 10,
     maxWidth: "100%",
-    alignSelf: "flex-start",
+    alignSelf: "flex-end",
     borderRadius: 10,
   },
   messageContainer: {
     flexDirection: "row",
-    justifyContent: "flex-end",
+    justifyContent: "flex-start",
     marginBottom: 8,
   },
   userMessage: {

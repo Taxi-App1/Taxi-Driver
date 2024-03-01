@@ -1,8 +1,8 @@
 import { Image, StyleSheet, Text, View, Platform } from "react-native";
 
-const DestinationContainer = ({ destination, driverData }) => {
+const DestinationContainer = ({ destination, driverData, from }) => {
   return (
-    <View className="bg-[#9EC4F7] py-4 pl-4 self-center rounded-[25px] mt-6 mx-5">
+    <View className="bg-[#9EC4F7] py-4 pl-4 self-center rounded-[25px] mt-6 w-full">
       <View className="flex-row items-center gap-4">
         <Image
           source={require("../Images/Icons/currentLocation.png")}
@@ -18,7 +18,7 @@ const DestinationContainer = ({ destination, driverData }) => {
           className={`text-[#4048A2] flex-1`}
           style={{ fontSize: driverData ? 15 : 19 }}
         >
-          Current Location
+          {from}
         </Text>
       </View>
 

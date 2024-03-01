@@ -18,6 +18,8 @@ const SignUp = ({ navigation }) => {
 
   const [paymentImage, setPaymentImage] = useState(null);
 
+  const [paymentMethod, setPaymentMethod] = useState(null);
+
   const [submitting, setSubmitting] = useState(false);
 
   const [nextPhase, setNextPhase] = useState(1);
@@ -172,7 +174,7 @@ const SignUp = ({ navigation }) => {
     }));
   };
 
-  const handleSelectImage = async (type) => {
+  const handleSelectImage = async (type, method) => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== "granted") {
       console.log("Permission denied");
@@ -191,6 +193,7 @@ const SignUp = ({ navigation }) => {
       if (type === "payment") {
         setPaymentImage(result.assets);
 
+        setPaymentMethod(method);
         return;
       }
       setImageData(result.assets);
@@ -215,11 +218,11 @@ const SignUp = ({ navigation }) => {
 
       requestData.append("car_color", data.car_color.trim());
 
-      requestData.append("car_color", data.car_model.trim());
+      requestData.append("car_model", data.car_model.trim());
 
-      requestData.append("car_color", data.car_year.trim());
+      requestData.append("car_year", data.car_year.trim());
 
-      requestData.append("car_color", data.plate_number.trim());
+      requestData.append("plate_number", data.plate_number.trim());
 
       if (imageData) {
         requestData.append(`image`, {
@@ -235,6 +238,12 @@ const SignUp = ({ navigation }) => {
           type: "image/jpeg",
           name: `image.jpeg`,
         });
+
+        requestData.append(`payment_method`, paymentMethod);
+
+        requestData.append(`expire_date`, new Date.now());
+
+        requestData.append(`has_access`, true);
       }
 
       await axios.post(
@@ -275,153 +284,162 @@ const SignUp = ({ navigation }) => {
 
   const goToNextPhase = (num) => {
     if (nextPhase === 1) {
-      // if (
-      //   !data.first_name ||
-      //   !data.last_name ||
-      //   !data.phone ||
-      //   !data.password ||
-      //   !data.confirm_password
-      // ) {
-      //   Toast.show({
-      //     type: "error",
-      //     text1: `${i18n.t("toast.error.emptyFields")}`,
-      //   });
+      if (
+        !data.first_name ||
+        !data.last_name ||
+        !data.phone ||
+        !data.password ||
+        !data.confirm_password
+      ) {
+        Toast.show({
+          type: "error",
+          text1: `${i18n.t("toast.error.emptyFields")}`,
+        });
 
-      //   return;
-      // }
+        return;
+      }
 
-      // const emptyFields = [];
+      const emptyFields = [];
 
-      // if (!data.first_name) {
-      //   setError((prevErrors) => ({
-      //     ...prevErrors,
-      //     first_name: `${i18n.t("signUpDriver.error.first_name.empty")}`,
-      //   }));
-      //   emptyFields.push("First Name");
-      // } else if (data.first_name.length < 3) {
-      //   setError((prevErrors) => ({
-      //     ...prevErrors,
-      //     first_name: `${i18n.t("signUpDriver.error.first_name.length")}`,
-      //   }));
-      //   emptyFields.push("First Name");
-      // }
+      if (!data.first_name) {
+        setError((prevErrors) => ({
+          ...prevErrors,
+          first_name: `${i18n.t("signUpDriver.error.first_name.empty")}`,
+        }));
+        emptyFields.push("First Name");
+      } else if (data.first_name.length < 3) {
+        setError((prevErrors) => ({
+          ...prevErrors,
+          first_name: `${i18n.t("signUpDriver.error.first_name.length")}`,
+        }));
+        emptyFields.push("First Name");
+      }
 
-      // if (!data.last_name) {
-      //   setError((prevErrors) => ({
-      //     ...prevErrors,
-      //     last_name: `${i18n.t("signUpDriver.error.last_name.empty")}`,
-      //   }));
-      //   emptyFields.push("Last Name");
-      // } else if (data.last_name.length < 3) {
-      //   setError((prevErrors) => ({
-      //     ...prevErrors,
-      //     last_name: `${i18n.t("signUpDriver.error.last_name.length")}`,
-      //   }));
-      //   emptyFields.push("First Name");
-      // }
+      if (!data.last_name) {
+        setError((prevErrors) => ({
+          ...prevErrors,
+          last_name: `${i18n.t("signUpDriver.error.last_name.empty")}`,
+        }));
+        emptyFields.push("Last Name");
+      } else if (data.last_name.length < 3) {
+        setError((prevErrors) => ({
+          ...prevErrors,
+          last_name: `${i18n.t("signUpDriver.error.last_name.length")}`,
+        }));
+        emptyFields.push("First Name");
+      }
 
-      // if (!data.car_type) {
-      //   setError((prevErrors) => ({
-      //     ...prevErrors,
-      //     car_type: `${i18n.t("signUpDriver.error.car_type.empty")}`,
-      //   }));
-      //   emptyFields.push("Car Type");
-      // } else if (data.car_type.length < 3) {
-      //   setError((prevErrors) => ({
-      //     ...prevErrors,
-      //     car_type: `${i18n.t("signUpDriver.error.car_type.length")}`,
-      //   }));
-      //   emptyFields.push("Car Type");
-      // }
+      if (!data.car_type) {
+        setError((prevErrors) => ({
+          ...prevErrors,
+          car_type: `${i18n.t("signUpDriver.error.car_type.empty")}`,
+        }));
+        emptyFields.push("Car Type");
+      } else if (data.car_type.length < 3) {
+        setError((prevErrors) => ({
+          ...prevErrors,
+          car_type: `${i18n.t("signUpDriver.error.car_type.length")}`,
+        }));
+        emptyFields.push("Car Type");
+      }
 
-      // if (!data.car_color) {
-      //   setError((prevErrors) => ({
-      //     ...prevErrors,
-      //     car_color: `${i18n.t("signUpDriver.error.car_color.empty")}`,
-      //   }));
-      //   emptyFields.push("Car Color");
-      // } else if (data.car_color.length < 3) {
-      //   setError((prevErrors) => ({
-      //     ...prevErrors,
-      //     car_color: `${i18n.t("signUpDriver.error.car_color.length")}`,
-      //   }));
-      //   emptyFields.push("Car Color");
-      // }
+      if (!data.car_color) {
+        setError((prevErrors) => ({
+          ...prevErrors,
+          car_color: `${i18n.t("signUpDriver.error.car_color.empty")}`,
+        }));
+        emptyFields.push("Car Color");
+      } else if (data.car_color.length < 3) {
+        setError((prevErrors) => ({
+          ...prevErrors,
+          car_color: `${i18n.t("signUpDriver.error.car_color.length")}`,
+        }));
+        emptyFields.push("Car Color");
+      }
 
-      // if (!data.password) {
-      //   setError((prevErrors) => ({
-      //     ...prevErrors,
-      //     password: `${i18n.t("signUpDriver.error.password.emtpy")}`,
-      //   }));
+      if (!data.password) {
+        setError((prevErrors) => ({
+          ...prevErrors,
+          password: `${i18n.t("signUpDriver.error.password.emtpy")}`,
+        }));
 
-      //   emptyFields.push("Password");
-      // } else if (data.password.trim() !== "") {
-      //   // Validate password format
-      //   const passwordRegex = /^(?=.*[A-Za-z\d]).{8,}$/;
-      //   if (!passwordRegex.test(data.password)) {
-      //     setError((prevErrors) => ({
-      //       ...prevErrors,
-      //       password: `${i18n.t("signUpDriver.error.password.invalid")}`,
-      //     }));
-      //     emptyFields.push("Password");
-      //   }
-      // }
+        emptyFields.push("Password");
+      } else if (data.password.trim() !== "") {
+        // Validate password format
+        const passwordRegex = /^(?=.*[A-Za-z\d]).{8,}$/;
+        if (!passwordRegex.test(data.password)) {
+          setError((prevErrors) => ({
+            ...prevErrors,
+            password: `${i18n.t("signUpDriver.error.password.invalid")}`,
+          }));
+          emptyFields.push("Password");
+        }
+      }
 
-      // if (data.password !== data.confirm_password) {
-      //   setError((prevErrors) => ({
-      //     ...prevErrors,
-      //     confirm_password: `${i18n.t(
-      //       "signUpDriver.error.confirm_password.notMatch"
-      //     )}`,
-      //   }));
-      //   emptyFields.push("Confirm Password");
-      // }
+      if (data.password !== data.confirm_password) {
+        setError((prevErrors) => ({
+          ...prevErrors,
+          confirm_password: `${i18n.t(
+            "signUpDriver.error.confirm_password.notMatch"
+          )}`,
+        }));
+        emptyFields.push("Confirm Password");
+      }
 
-      // if (!data.phone) {
-      //   setError((prevErrors) => ({
-      //     ...prevErrors,
-      //     phone: `${i18n.t("signUpDriver.error.phone.empty")}`,
-      //   }));
-      //   emptyFields.push("Phone Number");
-      // } else if (data.phone.trim() !== "") {
-      //   const phoneRegex = /^(70|71|76|78|79|81|03)[0-9]{6}$/;
-      //   if (!phoneRegex.test(data.phone)) {
-      //     setError((prevErrors) => ({
-      //       ...prevErrors,
-      //       phone: `${i18n.t("signUpDriver.error.phone.invalid")}`,
-      //     }));
-      //     emptyFields.push("Phone Number");
-      //   }
-      // }
+      if (!data.phone) {
+        setError((prevErrors) => ({
+          ...prevErrors,
+          phone: `${i18n.t("signUpDriver.error.phone.empty")}`,
+        }));
+        emptyFields.push("Phone Number");
+      } else if (data.phone.trim() !== "") {
+        const phoneRegex = /^(70|71|76|78|79|81|03)[0-9]{6}$/;
+        if (!phoneRegex.test(data.phone)) {
+          setError((prevErrors) => ({
+            ...prevErrors,
+            phone: `${i18n.t("signUpDriver.error.phone.invalid")}`,
+          }));
+          emptyFields.push("Phone Number");
+        }
+      }
 
-      // if (emptyFields.length > 0) {
-      //   Toast.show({
-      //     type: "error",
-      //     text1: `${i18n.t("toast.error.submissionFailedTitle")}`,
-      //     text2: `${i18n.t("toast.error.submissionFailedSubTitle")}`,
-      //   });
-      //   setSubmitting(false);
-      //   return;
-      // }
+      if (emptyFields.length > 0) {
+        Toast.show({
+          type: "error",
+          text1: `${i18n.t("toast.error.submissionFailedTitle")}`,
+          text2: `${i18n.t("toast.error.submissionFailedSubTitle")}`,
+        });
+        setSubmitting(false);
+        return;
+      }
 
       setNextPhase(2);
     }
 
     if (nextPhase == 2) {
-      // if (
-      //   !data.car_type ||
-      //   !data.car_model ||
-      //   !data.car_year ||
-      //   !data.plate_number ||
-      //   !data.car_color
-      // ) {
-      //   Toast.show({
-      //     type: "error",
-      //     text1: `${i18n.t("toast.error.emptyFields")}`,
-      //   });
+      if (
+        !data.car_type ||
+        !data.car_model ||
+        !data.car_year ||
+        !data.plate_number ||
+        !data.car_color
+      ) {
+        Toast.show({
+          type: "error",
+          text1: `${i18n.t("toast.error.emptyFields")}`,
+        });
 
-      //   return;
-      // }
+        const types = ["Car", "Bicycle", "Moto", "TukTuk"];
+
+        if (!types.includes(data.car_type)) {
+          setError((prevErrors) => ({
+            ...prevErrors,
+            car_type: `${i18n.t("signUpDriver.error.car_type.type")}`,
+          }));
+        }
+
+        return;
+      }
 
       setNextPhase(3);
     }
@@ -431,18 +449,22 @@ const SignUp = ({ navigation }) => {
     {
       image: require("../../Images/OMT.png"),
       color: "#F5DB77",
+      method: "OMT",
     },
     {
       image: require("../../Images/Whish.png"),
       color: "#f96969",
+      method: "WHISH",
     },
     {
       image: require("../../Images/MoneyGram.png"),
       color: "#F92A2A",
+      method: "MONEYGRAM",
     },
     {
       image: require("../../Images/ria.jpg"),
       color: "#FF9429",
+      method: "RIA",
     },
   ];
 
@@ -544,7 +566,7 @@ const SignUp = ({ navigation }) => {
                     />
 
                     <TouchableOpacity
-                      onPress={() => handleSelectImage("payment")}
+                      onPress={() => handleSelectImage("payment", pay.method)}
                       className="flex-row bg-white p-1 ml-5 rounded-full items-center"
                     >
                       <Text className="font-regulartext-[12px]">

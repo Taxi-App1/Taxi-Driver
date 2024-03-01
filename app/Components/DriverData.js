@@ -17,7 +17,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Socket } from "../socket/socket";
 
-const DriverData = ({ user_id, destination, _id }) => {
+const DriverData = ({ user_id, destination, _id, from }) => {
   const navigation = useNavigation();
 
   const { i18n } = i18nStore;
@@ -36,7 +36,7 @@ const DriverData = ({ user_id, destination, _id }) => {
   const handleOpenChat = () => {
     createRoomOrGetRoomId();
 
-    navigation.navigate(`${i18n.t("userNav.screens.chat")}`, {
+    navigation.navigate(`${i18n.t("driverNav.screens.chat")}`, {
       driver_id: userInfo,
       user_id: user_id,
       room: room,
@@ -125,7 +125,11 @@ const DriverData = ({ user_id, destination, _id }) => {
       </View>
 
       <View className="px-4">
-        <DestinationContainer destination={destination} driverData={true} />
+        <DestinationContainer
+          destination={destination}
+          driverData={true}
+          from={from}
+        />
       </View>
 
       <View className="pb-2">

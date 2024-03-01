@@ -44,6 +44,10 @@ const Map = ({ navigation }) => {
 
   const [orderData, setOrderData] = useState(null);
 
+  const [distance, setDistance] = useState(0);
+
+  const [duration, setDuration] = useState(0);
+
   const { data: orderNotEnded } = useFetch(
     `${process.env.EXPO_PUBLIC_API_URL}order/getDriverIsNotEndedOrder/${userInfo?._id}`
   );
@@ -53,7 +57,9 @@ const Map = ({ navigation }) => {
   useEffect(() => {
     requestLocationPermissions();
 
-    // fetchOrder();
+    if (userInfo?.has_access === true && !orderData) {
+      fetchOrder();
+    }
   }, []);
 
   useEffect(() => {
@@ -121,18 +127,23 @@ const Map = ({ navigation }) => {
           return;
         }
 
+        clearInterval(intervalId);
+
         Alert.alert(`${i18n.t("map.gotOrder")}`, `${i18n.t("map.askAccept")}`, [
           {
             text: `${i18n.t("cancel")}`,
             style: "cancel",
             onPress: async () => {
               try {
+                console.log(resp.data);
                 await axios.put(
-                  `${process.env.EXPO_PUBLIC_API_URL}/order/updateOrder/${resp?.data?._id}`,
+                  `${process.env.EXPO_PUBLIC_API_URL}order/updateOrder/${resp?.data?._id}`,
                   {
                     status: "Canceled",
                   }
                 );
+
+                fetchOrder();
               } catch (error) {
                 console.log("error in cancel order", error.message);
               }
@@ -142,19 +153,27 @@ const Map = ({ navigation }) => {
             text: `${i18n.t("accept")}`,
             onPress: async () => {
               try {
+                console.log(
+                  `${process.env.EXPO_PUBLIC_API_URL}order/updateOrder/${resp?.data?._id}`
+                );
+                console.log(resp.data);
                 await axios.put(
-                  `${process.env.EXPO_PUBLIC_API_URL}/order/updateOrder/${resp?.data?._id}`,
+                  `${process.env.EXPO_PUBLIC_API_URL}order/updateOrder/${resp?.data?._id}`,
                   {
                     status: "Accepted",
                   }
                 );
+
+                console.log("after accepted", resp.data);
 
                 changeComponentHeight(380);
 
                 setOrderData(resp?.data);
 
                 clearInterval(intervalId);
-              } catch (error) {}
+              } catch (error) {
+                console.log("accep error", error.message);
+              }
             },
           },
         ]);
@@ -278,6 +297,7 @@ const Map = ({ navigation }) => {
                 user_id={orderNotEnded?.user_id}
                 _id={orderNotEnded?._id}
                 destination={{ name: orderNotEnded?.to }}
+                from={orderData.from}
               />
             ) : (
               <DriverData
@@ -285,6 +305,7 @@ const Map = ({ navigation }) => {
                 user_id={orderData?.user_id}
                 _id={orderData?._id}
                 destination={{ name: orderData?.to }}
+                from={orderData.from}
               />
             )}
           </Animated.View>

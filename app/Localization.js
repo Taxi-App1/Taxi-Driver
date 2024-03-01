@@ -2,6 +2,7 @@ export const translations = {
   en: {
     cancel: "cancel",
     submit: "Submit",
+    accept: "Accept",
     next: "Next",
     signNav: {
       signIn: "Sign In",
@@ -58,7 +59,9 @@ export const translations = {
           inUse:
             "This phone number is already in use. Please choose a different one.",
         },
-        car_type: {},
+        car_type: {
+          type: "Car type should be one of the following: Car, Bicycle, Moto, or TukTuk",
+        },
         car_color: {
           empty: "Please enter your car color",
           length: "Car color should be at least 3 characters",
@@ -168,10 +171,17 @@ export const translations = {
       saving: "Saving...",
       dataSaved: "Data saved successfully",
     },
+    chat: {
+      send: "Send",
+      sending: "Sending",
+      loadingChat: "Loading chat...",
+      type: "Type your message",
+    },
   },
   ar: {
     cancel: "إلغاء",
     submit: "إرسال",
+    accept: "قبول",
     next: "التالي",
     signNav: {
       signIn: "تسجيل دخول",
@@ -226,7 +236,9 @@ export const translations = {
           empty: "الرجاء إدخال رقم الهاتف",
           invalid: "رقم هاتف غير صالح",
         },
-        car_type: {},
+        car_type: {
+          type: "يجب أن يكون نوع السيارة واحدًا مما يلي:Car or Bicycle or Moto or TukTuk",
+        },
         car_color: {
           empty: "الرجاء إدخال لون السيارة",
           length: "يجب أن لا يقل لون السيارة عن 3 أحرف",
@@ -336,6 +348,12 @@ export const translations = {
       save: "تحفيظ",
       saving: "جاري التحفيظ",
       dataSaved: "تم تعديل المعلومات بنجاح",
+    },
+    chat: {
+      send: "إرسال",
+      sending: "جاري الإرسال...",
+      loadingChat: "جارٍ تحميل الدردشة...",
+      type: "اكتب رسالتك",
     },
   },
 };

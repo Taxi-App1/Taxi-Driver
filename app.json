@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Taxi-Driver",
-    "slug": "Taxi-Driver",
+    "name": "Wobble Driver",
+    "slug": "Wobble-Driver",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -13,17 +13,36 @@
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.pickmeup01.WobbleDriver",
+      "infoPlist": {
+        "ExpoLocalization_supportsRTL": true
+      },
+      "buildNumber": "1"
     },
     "android": {
+      "package": "com.pickmeup01.WobbleDriver",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "versionCode": 1
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-localization"]
+    "plugins": ["expo-localization"],
+    "extra": {
+      "supportsRTL": true,
+      "eas": {
+        "projectId": "d4b9a07a-0ef0-40db-8d56-42c41c8dfaa9"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/d4b9a07a-0ef0-40db-8d56-42c41c8dfaa9"
+    }
   }
 }
