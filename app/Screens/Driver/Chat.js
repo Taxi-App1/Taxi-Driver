@@ -107,7 +107,7 @@ const Chat = ({ route }) => {
     <View className="flex-1">
       <View style={styles.driverData}>
         <Text className="text-[20px]">
-          {driver_id.first_name} {driver_id.last_name}
+          {user_id.first_name} {user_id.last_name}
         </Text>
       </View>
 
@@ -134,7 +134,7 @@ const Chat = ({ route }) => {
           style={styles.inputField}
           onChangeText={(text) => setTextMessage(text)}
           value={textMessage}
-          placeholder={i18n.t("chat.type")} 
+          placeholder={i18n.t("chat.type")}
         />
 
         <TouchableOpacity style={styles.sendButton} onPress={sendMessage}>

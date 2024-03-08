@@ -57,7 +57,7 @@ const Map = ({ navigation }) => {
   useEffect(() => {
     requestLocationPermissions();
 
-    if (userInfo?.has_access === true && !orderData) {
+    if (!orderData) {
       fetchOrder();
     }
   }, []);
@@ -135,7 +135,6 @@ const Map = ({ navigation }) => {
             style: "cancel",
             onPress: async () => {
               try {
-                console.log(resp.data);
                 await axios.put(
                   `${process.env.EXPO_PUBLIC_API_URL}order/updateOrder/${resp?.data?._id}`,
                   {
@@ -156,7 +155,6 @@ const Map = ({ navigation }) => {
                 console.log(
                   `${process.env.EXPO_PUBLIC_API_URL}order/updateOrder/${resp?.data?._id}`
                 );
-                console.log(resp.data);
                 await axios.put(
                   `${process.env.EXPO_PUBLIC_API_URL}order/updateOrder/${resp?.data?._id}`,
                   {
@@ -172,7 +170,7 @@ const Map = ({ navigation }) => {
 
                 clearInterval(intervalId);
               } catch (error) {
-                console.log("accep error", error.message);
+                console.log("accept error", error.message);
               }
             },
           },

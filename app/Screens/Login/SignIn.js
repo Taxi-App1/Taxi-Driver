@@ -58,8 +58,16 @@ const SignIn = ({ navigation, route }) => {
 
       setSubmitting(true);
 
+      // Remove spaces and other non-digit characters from the phone number
+      function removeSpaces(numberWithSpaces) {
+        // Split the number by spaces and join them without spaces
+        return numberWithSpaces.trim().split(" ").join("");
+      }
+
+      const numberWithoutSpaces = removeSpaces(data?.phone_number);
+
       await login({
-        phone_number: data.phone_number,
+        phone_number: numberWithoutSpaces,
         password: data.password,
       });
 

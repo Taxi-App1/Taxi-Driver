@@ -57,6 +57,9 @@ const SignUp = ({ navigation }) => {
   const phoneRef = useRef();
   const carTypeRef = useRef();
   const carColorRef = useRef();
+  const carModelRef = useRef();
+  const carYearRef = useRef();
+  const plateNumberRef = useRef();
   const passwordRef = useRef();
   const confirmPasswordRef = useRef();
 
@@ -107,7 +110,7 @@ const SignUp = ({ navigation }) => {
         key: "confirm_password",
         error: error.confirm_password,
         ref: confirmPasswordRef,
-        onSubmitEditing: () => handleSubmit(),
+        onSubmitEditing: () => goToNextPhase(),
         returnKeyType: "done",
       }
     );
@@ -121,22 +124,22 @@ const SignUp = ({ navigation }) => {
         key: "car_type",
         error: error.car_type,
         ref: carTypeRef,
-        onSubmitEditing: () => carColorRef.current.focus(),
+        onSubmitEditing: () => carModelRef.current.focus(),
       },
       {
         placeholder: `${i18n.t("signUpDriver.input.model.placeholder")}`,
         value: data.car_model,
-        key: "car_type",
+        key: "car_model",
         error: error.car_model,
-        ref: carTypeRef,
-        onSubmitEditing: () => carColorRef.current.focus(),
+        ref: carModelRef,
+        onSubmitEditing: () => carYearRef.current.focus(),
       },
       {
         placeholder: `${i18n.t("signUpDriver.input.year.placeholder")}`,
         value: data.car_year,
-        key: "car_type",
+        key: "car_year",
         error: error.car_year,
-        ref: carTypeRef,
+        ref: carYearRef,
         onSubmitEditing: () => carColorRef.current.focus(),
       },
       {
@@ -145,15 +148,15 @@ const SignUp = ({ navigation }) => {
         key: "car_color",
         error: error.car_color,
         ref: carColorRef,
-        onSubmitEditing: () => passwordRef.current.focus(),
+        onSubmitEditing: () => plateNumberRef.current.focus(),
       },
       {
         placeholder: `${i18n.t("signUpDriver.input.plate_number.placeholder")}`,
         value: data.plate_number,
-        key: "car_type",
+        key: "plate_number",
         error: error.plate_number,
         ref: carTypeRef,
-        onSubmitEditing: () => carColorRef.current.focus(),
+        onSubmitEditing: () => handleSubmit(),
       },
     ];
   }
@@ -204,13 +207,21 @@ const SignUp = ({ navigation }) => {
     try {
       setSubmitting(true);
 
+      // Remove spaces and other non-digit characters from the phone number
+      function removeSpaces(numberWithSpaces) {
+        // Split the number by spaces and join them without spaces
+        return numberWithSpaces.trim().split(" ").join("");
+      }
+
+      const numberWithoutSpaces = removeSpaces(data.phone);
+
       const requestData = new FormData();
 
       requestData.append("first_name", data.first_name.trim());
 
       requestData.append("last_name", data.last_name.trim());
 
-      requestData.append("phone_number", data.phone.trim());
+      requestData.append("phone_number", numberWithoutSpaces);
 
       requestData.append("password", data.password.trim());
 
@@ -329,33 +340,33 @@ const SignUp = ({ navigation }) => {
         emptyFields.push("First Name");
       }
 
-      if (!data.car_type) {
-        setError((prevErrors) => ({
-          ...prevErrors,
-          car_type: `${i18n.t("signUpDriver.error.car_type.empty")}`,
-        }));
-        emptyFields.push("Car Type");
-      } else if (data.car_type.length < 3) {
-        setError((prevErrors) => ({
-          ...prevErrors,
-          car_type: `${i18n.t("signUpDriver.error.car_type.length")}`,
-        }));
-        emptyFields.push("Car Type");
-      }
+      // if (!data.car_type) {
+      //   setError((prevErrors) => ({
+      //     ...prevErrors,
+      //     car_type: `${i18n.t("signUpDriver.error.car_type.empty")}`,
+      //   }));
+      //   emptyFields.push("Car Type");
+      // } else if (data.car_type.length < 3) {
+      //   setError((prevErrors) => ({
+      //     ...prevErrors,
+      //     car_type: `${i18n.t("signUpDriver.error.car_type.length")}`,
+      //   }));
+      //   emptyFields.push("Car Type");
+      // }
 
-      if (!data.car_color) {
-        setError((prevErrors) => ({
-          ...prevErrors,
-          car_color: `${i18n.t("signUpDriver.error.car_color.empty")}`,
-        }));
-        emptyFields.push("Car Color");
-      } else if (data.car_color.length < 3) {
-        setError((prevErrors) => ({
-          ...prevErrors,
-          car_color: `${i18n.t("signUpDriver.error.car_color.length")}`,
-        }));
-        emptyFields.push("Car Color");
-      }
+      // if (!data.car_color) {
+      //   setError((prevErrors) => ({
+      //     ...prevErrors,
+      //     car_color: `${i18n.t("signUpDriver.error.car_color.empty")}`,
+      //   }));
+      //   emptyFields.push("Car Color");
+      // } else if (data.car_color.length < 3) {
+      //   setError((prevErrors) => ({
+      //     ...prevErrors,
+      //     car_color: `${i18n.t("signUpDriver.error.car_color.length")}`,
+      //   }));
+      //   emptyFields.push("Car Color");
+      // }
 
       if (!data.password) {
         setError((prevErrors) => ({
