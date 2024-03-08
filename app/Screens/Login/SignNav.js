@@ -1,8 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
 import { colors, fonts } from "../../ReusableTools/css";
 import { i18nStore } from "../../MobX/I18nStore";
+import AccountRecovery from "./AccountRecovery";
+import ChangePassword from "./ChangePassword";
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
 
 const Stack = createStackNavigator();
 
@@ -22,7 +24,7 @@ const SignNav = () => {
         cardStyle: {
           backgroundColor: "white",
         },
-        headerTintColor: "black",
+        headerTintColor: colors.primary,
       }}
     >
       <Stack.Screen
@@ -30,10 +32,33 @@ const SignNav = () => {
         component={SignIn}
         options={{ headerShown: false }}
       />
+
       <Stack.Screen
         name={`${i18n.t("signNav.signUp")}`}
         component={SignUp}
         options={{ headerShown: true }}
+      />
+
+      <Stack.Screen
+        name="recovery"
+        component={AccountRecovery}
+        options={{
+          headerShown: false,
+          cardStyle: {
+            backgroundColor: "white",
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name={`changePass`}
+        component={ChangePassword}
+        options={{
+          headerShown: false,
+          cardStyle: {
+            backgroundColor: "white",
+          },
+        }}
       />
     </Stack.Navigator>
   );

@@ -63,6 +63,21 @@ const DrawerContent = () => {
         setActiveScreen("Setting");
       },
     },
+    // {
+    //   screenName: "Payment",
+    //   icon: (
+    //     <Feather
+    //       name="settings"
+    //       size={24}
+    //       color={activeScreen === "Setting" ? "white" : "#A2A3A8"}
+    //     />
+    //   ),
+    //   text: `${i18n.t("drawerContent.settings")}`,
+    //   onPress: () => {
+    //     navigation.navigate(`${i18n.t("driverNav.screens.settings")}`);
+    //     setActiveScreen("Setting");
+    //   },
+    // },
   ];
 
   return (

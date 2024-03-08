@@ -6,7 +6,7 @@ import SignNav from "./app/Screens/Login/SignNav";
 import DriverNav from "./app/Screens/Driver/DriverNav";
 import { authStore } from "./app/MobX/AuthStore";
 import { colors } from "./app/ReusableTools/css";
-import { View } from "react-native";
+import { ActivityIndicator, View } from "react-native";
 import { observer } from "mobx-react";
 
 export default App = observer(() => {

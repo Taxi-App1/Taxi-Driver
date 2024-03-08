@@ -45,6 +45,10 @@ class AuthStore {
         data
       );
 
+      if (resp.data.message === "Please enter your password!") {
+        return;
+      }
+
       this.setUserInfo(resp.data.findDriver);
 
       this.setUserToken(resp.data.token);

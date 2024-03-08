@@ -11,6 +11,9 @@ import Setting from "./Settings";
 import SwitchLang from "./SwitchLang";
 import About from "./About";
 import Support from "./Support";
+import Chat from "./Chat";
+import OTP from "./OTP";
+import EditProfile from "./EditProfile";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -40,7 +43,7 @@ const DriverNav = () => {
             return (
               <HeaderTitle
                 title={route.name}
-                isDrawer={true}
+                isDrawer={true} 
                 isChat={
                   route.name === `${i18n.t("userNav.screens.chat")}`
                     ? true
@@ -71,6 +74,11 @@ const DriverNav = () => {
         <Drawer.Screen
           name={i18n.t("driverNav.screens.settings")}
           component={Setting}
+        />
+
+        <Drawer.Screen
+          name={`${i18n.t("driverNav.screens.editProfile")}`}
+          component={EditProfile}
         />
       </Drawer.Navigator>
     );
@@ -112,6 +120,19 @@ const DriverNav = () => {
       <Stack.Screen
         name={i18n.t("driverNav.screens.support")}
         component={Support}
+      />
+
+      <Stack.Screen
+        name={`${i18n.t("driverNav.screens.chat")}`}
+        component={Chat}
+      />
+
+      <Stack.Screen
+        name={`otp`}
+        component={OTP}
+        options={{
+          headerShown: false,
+        }}
       />
     </Stack.Navigator>
   );

@@ -16,7 +16,7 @@ import { authStore } from "../../MobX/AuthStore";
 import { ReusableInput } from "../../ReusableTools/ReusableInput";
 
 const SignIn = ({ navigation, route }) => {
-  const { login, userInfo } = authStore;
+  const { login } = authStore;
   const { i18n, changeLocale, locale } = i18nStore;
   // const { i18n, changeLocale, locale } = useContext(I18nContext);
 
@@ -58,8 +58,16 @@ const SignIn = ({ navigation, route }) => {
 
       setSubmitting(true);
 
+      // Remove spaces and other non-digit characters from the phone number
+      function removeSpaces(numberWithSpaces) {
+        // Split the number by spaces and join them without spaces
+        return numberWithSpaces.trim().split(" ").join("");
+      }
+
+      const numberWithoutSpaces = removeSpaces(data?.phone_number);
+
       await login({
-        phone_number: data.phone_number,
+        phone_number: numberWithoutSpaces,
         password: data.password,
       });
 
@@ -67,7 +75,7 @@ const SignIn = ({ navigation, route }) => {
     } catch (error) {
       setSubmitting(false);
 
-      console.log("handel submit sign up error", error);
+      console.log("handel submit sign up error", error.message);
       Toast.show({
         type: "error",
         text1: error.message,
@@ -143,7 +151,7 @@ const SignIn = ({ navigation, route }) => {
             />
 
             <TouchableOpacity onPress={() => navigation.navigate("recovery")}>
-              <Text className="text-white text-center my-2 text-base">
+              <Text className="text-black text-center my-2 text-base">
                 {`${i18n.t("signInDriver.forgotPass")}`}
               </Text>
             </TouchableOpacity>

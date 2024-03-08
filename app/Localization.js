@@ -1,6 +1,9 @@
 export const translations = {
   en: {
     cancel: "cancel",
+    submit: "Submit",
+    accept: "Accept",
+    next: "Next",
     signNav: {
       signIn: "Sign In",
       signUp: "Sign Up",
@@ -8,36 +11,37 @@ export const translations = {
     signUpDriver: {
       input: {
         first_name: {
-          label: "First Name",
           placeholder: "Enter your first name",
         },
         last_name: {
-          label: "Last Name",
           placeholder: "Enter your last name",
         },
         phone: {
-          label: "Phone Number",
           placeholder: "Enter your phone number",
         },
         car_type: {
-          label: "Car Type",
-          placeholder: "Enter your car type",
+          placeholder: "Vehicle Manufacteur",
         },
         car_color: {
-          label: "Car Color",
-          placeholder: "Enter your car color",
+          placeholder: "Vehicle color",
         },
         car_plate: {
-          label: "Car Plate",
           placeholder: "Enter your car plate",
         },
         password: {
-          label: "Password",
           placeholder: "Enter your password",
         },
         confirm_password: {
-          label: "Confirm Password",
           placeholder: "Confirm your password",
+        },
+        year: {
+          placeholder: "Vehicle year",
+        },
+        model: {
+          placeholder: "Vehicle model",
+        },
+        plate_number: {
+          placeholder: "Plate number",
         },
       },
       error: {
@@ -55,7 +59,9 @@ export const translations = {
           inUse:
             "This phone number is already in use. Please choose a different one.",
         },
-        car_type: {},
+        car_type: {
+          type: "Car type should be one of the following: Car, Bicycle, Moto, or TukTuk",
+        },
         car_color: {
           empty: "Please enter your car color",
           length: "Car color should be at least 3 characters",
@@ -144,9 +150,39 @@ export const translations = {
       phone: "Phone Number:",
       insta: "Instagram:",
     },
+    map: {
+      fetchLocation: "Fetching location",
+      loadingMap: "Loading map...",
+      notGranted: "Location permission not granted",
+      gotOrder: "You got an order",
+      askAccept: "Do you want to take it?",
+    },
+    accRecovery: {
+      recovery: "Account recovery",
+      fullName: "Full Name",
+      phone: "Phone Number",
+      newPass: "New Password",
+      confirmPass: "Confirm Password",
+    },
+    editProfile: {
+      addPhoto: "Add Photo",
+      editPhoto: "Edit Photo",
+      save: "Save",
+      saving: "Saving...",
+      dataSaved: "Data saved successfully",
+    },
+    chat: {
+      send: "Send",
+      sending: "Sending",
+      loadingChat: "Loading chat...",
+      type: "Type your message",
+    },
   },
   ar: {
     cancel: "إلغاء",
+    submit: "إرسال",
+    accept: "قبول",
+    next: "التالي",
     signNav: {
       signIn: "تسجيل دخول",
       signUp: "تسجيل حساب",
@@ -200,7 +236,9 @@ export const translations = {
           empty: "الرجاء إدخال رقم الهاتف",
           invalid: "رقم هاتف غير صالح",
         },
-        car_type: {},
+        car_type: {
+          type: "يجب أن يكون نوع السيارة واحدًا مما يلي:Car or Bicycle or Moto or TukTuk",
+        },
         car_color: {
           empty: "الرجاء إدخال لون السيارة",
           length: "يجب أن لا يقل لون السيارة عن 3 أحرف",
@@ -289,6 +327,33 @@ export const translations = {
       contact: "تواصل معنا:",
       phone: "رقم الهاتف:",
       insta: "انتسغرام:",
+    },
+    map: {
+      fetchLocation: "جارٍ تحديد الموقع",
+      loadingMap: "جارٍ تحميل الخريطة...",
+      notGranted: "لم يتم منح إذن تحديد الموقع",
+      gotOrder: "لقد تلقيتَ طلبية",
+      askAccept: "هل تريد أن توافق على هذه الطلبية؟",
+    },
+    accRecovery: {
+      recovery: "استرجاع الحساب",
+      fullName: "الاسم الكامل",
+      phone: "رقم الهاتف",
+      newPass: "كلمة السر الجديدة",
+      confirmPass: "تأكيد كلمة السر",
+    },
+    editProfile: {
+      addPhoto: "أضف صورة",
+      editPhoto: "تعديل الصورة",
+      save: "تحفيظ",
+      saving: "جاري التحفيظ",
+      dataSaved: "تم تعديل المعلومات بنجاح",
+    },
+    chat: {
+      send: "إرسال",
+      sending: "جاري الإرسال...",
+      loadingChat: "جارٍ تحميل الدردشة...",
+      type: "اكتب رسالتك",
     },
   },
 };

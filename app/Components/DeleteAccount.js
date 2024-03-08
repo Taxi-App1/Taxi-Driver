@@ -33,7 +33,7 @@ const DeleteAccount = () => {
     try {
       setLoading(true);
       await axios.delete(
-        `${process.env.EXPO_PUBLIC_API_URL}user/deleteUser/${userInfo._id}`
+        `${process.env.EXPO_PUBLIC_API_URL}driver/deleteDriver/${userInfo._id}`
       );
 
       setUserToken(null);
