@@ -59,6 +59,7 @@ class AuthStore {
       if (resp.data.findDriver.has_access === false) {
         this.setLoginResponse(resp.data);
 
+        this.setLoading(false);
         return;
       }
 
