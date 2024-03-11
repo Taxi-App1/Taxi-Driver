@@ -177,6 +177,10 @@ export const translations = {
       loadingChat: "Loading chat...",
       type: "Type your message",
     },
+    driverData :{
+      riderDetails: "Rider Details",
+      name: "Name"
+    }
   },
   ar: {
     cancel: "إلغاء",
@@ -355,5 +359,9 @@ export const translations = {
       loadingChat: "جارٍ تحميل الدردشة...",
       type: "اكتب رسالتك",
     },
+    driverData :{
+      riderDetails: "تفاصيل الراكب",
+      name: "الاسم"
+    }
   },
 };

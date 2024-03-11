@@ -51,7 +51,7 @@ const Orders = () => {
         <Text className="text-black font-regular">{item?.to}</Text>
 
         <Text className="text-black font-regular">
-          {item?.user_id.first_name} {item?.user_id.last_name}
+          {item?.user_id?.first_name} {item?.user_id?.last_name}
         </Text>
       </View>
     );
