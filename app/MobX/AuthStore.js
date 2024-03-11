@@ -7,18 +7,21 @@ class AuthStore {
   userInfo = null;
   token = null;
   loading = false;
+  loginResponse = null;
 
   constructor() {
     makeObservable(this, {
       userInfo: observable,
       token: observable,
       loading: observable,
+      loginResponse: observable,
       login: action.bound,
       isLoggedIn: action.bound,
       setLoading: action.bound,
       setUserInfo: action.bound,
       setUserToken: action.bound,
       logout: action.bound,
+      setLoginResponse: action.bound,
     });
 
     this.isLoggedIn();
@@ -36,6 +39,10 @@ class AuthStore {
     this.loading = value;
   }
 
+  setLoginResponse(value) {
+    this.loginResponse = value;
+  }
+
   async login(data) {
     try {
       this.setLoading(true);
@@ -46,6 +53,12 @@ class AuthStore {
       );
 
       if (resp.data.message === "Please enter your password!") {
+        return;
+      }
+
+      if (resp.data.findDriver.has_access === false) {
+        this.setLoginResponse(resp.data);
+
         return;
       }
 
