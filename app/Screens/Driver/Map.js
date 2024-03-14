@@ -58,7 +58,7 @@ const Map = ({ navigation }) => {
     requestLocationPermissions();
 
     if (!orderData) {
-      fetchOrder();
+      // fetchOrder();
     }
   }, []);
 
@@ -152,17 +152,12 @@ const Map = ({ navigation }) => {
             text: `${i18n.t("accept")}`,
             onPress: async () => {
               try {
-                console.log(
-                  `${process.env.EXPO_PUBLIC_API_URL}order/updateOrder/${resp?.data?._id}`
-                );
                 await axios.put(
                   `${process.env.EXPO_PUBLIC_API_URL}order/updateOrder/${resp?.data?._id}`,
                   {
                     status: "Accepted",
                   }
                 );
-
-                console.log("after accepted", resp.data);
 
                 changeComponentHeight(380);
 
@@ -177,10 +172,8 @@ const Map = ({ navigation }) => {
         ]);
       } catch (error) {
         console.log("fetchOrderStatus error", error.message);
-
-        clearInterval(intervalId);
       }
-    }, 2000); // Check the status every 5 seconds (adjust the interval as needed)
+    }, 2000); // Check the status every 2 seconds (adjust the interval as needed)
   };
 
   const ASPECT_RATIO = width / height;

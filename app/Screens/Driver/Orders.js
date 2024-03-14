@@ -10,6 +10,7 @@ import useFetch from "../../ReusableTools/UseFetch";
 import { authStore } from "../../MobX/AuthStore";
 import { useState } from "react";
 import { colors } from "../../ReusableTools/css";
+import TripCard from "../../Components/TripCard";
 
 const Orders = () => {
   const [refreshing, setRefreshing] = useState(false);
@@ -33,7 +34,7 @@ const Orders = () => {
         <ActivityIndicator size={"large"} color={colors.primary} />
       </View>
     );
-  }
+  }console.log();
 
   if (data?.length === 0 || data === null) {
     return (
@@ -44,17 +45,7 @@ const Orders = () => {
   }
 
   const renderItems = ({ item }) => {
-    return (
-      <View className="flex-1 justify-center items-center">
-        <Text className="text-black font-regular">{item?.from}</Text>
-
-        <Text className="text-black font-regular">{item?.to}</Text>
-
-        <Text className="text-black font-regular">
-          {item?.user_id?.first_name} {item?.user_id?.last_name}
-        </Text>
-      </View>
-    );
+    return <TripCard {...item} />;
   };
 
   return (
