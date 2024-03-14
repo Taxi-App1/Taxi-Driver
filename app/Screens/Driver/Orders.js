@@ -34,7 +34,7 @@ const Orders = () => {
         <ActivityIndicator size={"large"} color={colors.primary} />
       </View>
     );
-  }console.log();
+  }
 
   if (data?.length === 0 || data === null) {
     return (
