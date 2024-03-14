@@ -177,10 +177,17 @@ export const translations = {
       loadingChat: "Loading chat...",
       type: "Type your message",
     },
-    driverData :{
+    driverData: {
       riderDetails: "Rider Details",
-      name: "Name"
-    }
+      name: "Name",
+    },
+    tripCard: {
+      to: "to",
+      ride: {
+        completed: "Ride completed",
+        canceled: "Ride canceled",
+      },
+    },
   },
   ar: {
     cancel: "إلغاء",
@@ -359,9 +366,16 @@ export const translations = {
       loadingChat: "جارٍ تحميل الدردشة...",
       type: "اكتب رسالتك",
     },
-    driverData :{
+    driverData: {
       riderDetails: "تفاصيل الراكب",
-      name: "الاسم"
-    }
+      name: "الاسم",
+    },
+    tripCard: {
+      to: "إلى",
+      ride: {
+        completed: "رحلة مكتملة",
+        canceled: "رحلة ملتغية",
+      },
+    },
   },
 };
