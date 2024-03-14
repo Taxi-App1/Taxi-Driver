@@ -58,7 +58,7 @@ const Map = ({ navigation }) => {
     requestLocationPermissions();
 
     if (!orderData) {
-      // fetchOrder();
+      fetchOrder();
     }
   }, []);
 

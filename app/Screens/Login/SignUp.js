@@ -90,7 +90,7 @@ const SignUp = ({ navigation }) => {
         error: error.phone,
         keyboardType: "numeric",
         ref: phoneRef,
-        onSubmitEditing: () => carTypeRef.current.focus(),
+        onSubmitEditing: () => passwordRef.current.focus(),
       },
       {
         placeholder: `${i18n.t("signUpDriver.input.password.placeholder")}`,
@@ -155,7 +155,7 @@ const SignUp = ({ navigation }) => {
         value: data.plate_number,
         key: "plate_number",
         error: error.plate_number,
-        ref: carTypeRef,
+        ref: plateNumberRef,
         onSubmitEditing: () => handleSubmit(),
       },
     ];
