@@ -117,6 +117,8 @@ export const translations = {
       rides: "Rides",
       settings: "Settings",
       logOut: "Log Out",
+      viewProfile: "View Profile",
+      rating: "Rating",
     },
     driverNav: {
       screens: {
@@ -306,6 +308,8 @@ export const translations = {
       rides: "رحلاتك السابقة",
       settings: "الإعدادات",
       logOut: "تسجيل الخروج",
+      viewProfile: "الملف الشخصي",
+      rating: "تقييم",
     },
     driverNav: {
       screens: {

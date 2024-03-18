@@ -57,10 +57,28 @@ const Map = ({ navigation }) => {
   useEffect(() => {
     requestLocationPermissions();
 
-    if (!orderData) {
-      // fetchOrder();
+    if (!orderData && userInfo.has_access === true) {
+      fetchOrder();
     }
   }, []);
+
+  useEffect(() => {
+    const changeDriverLocation = async () => {
+      try {
+        await axios.post(
+          `${process.env.EXPO_PUBLIC_API_URL}location/updateLocationDriver/${userInfo?._id}`,
+          {
+            lat: currentLocation?.latitude,
+            long: currentLocation?.longitude,
+          }
+        );
+      } catch (error) {
+        console.log("changeDriverLocation error", error.message);
+      }
+    };
+
+    changeDriverLocation();
+  }, [currentLocation]);
 
   useEffect(() => {
     if (orderData) {

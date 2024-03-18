@@ -1,5 +1,5 @@
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { authStore } from "../../MobX/AuthStore";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { i18nStore } from "../../MobX/I18nStore";
@@ -15,6 +15,8 @@ const EditProfile = () => {
   const { i18n } = i18nStore;
 
   const { userInfo, setUserInfo } = authStore;
+
+  const [imageFromBack, setImageFromBack] = useState(null);
 
   const [data, setData] = useState({
     first_name: userInfo?.first_name,
@@ -57,6 +59,12 @@ const EditProfile = () => {
   const carTypeRef = useRef();
   const plateNumberRef = useRef();
 
+  useEffect(() => {
+    if (userInfo?.image !== null) {
+      setImageFromBack(userInfo?.image);
+    }
+  }, [userInfo]);
+
   const handleInputChange = (label, value) => {
     setData((prevData) => ({
       ...prevData,
@@ -90,6 +98,8 @@ const EditProfile = () => {
   };
 
   const handleRemoveImage = () => {
+    setImageFromBack(null);
+
     setImageData(null);
   };
 
@@ -254,7 +264,6 @@ const EditProfile = () => {
 
       if (imageData) {
         const currentDate = new Date();
-
         const timestamp = currentDate.getTime(); // Get current timestamp in milliseconds
 
         const fileName = `image_${timestamp}.jpg`;
@@ -264,7 +273,7 @@ const EditProfile = () => {
           type: "image/jpeg",
           name: fileName,
         });
-      } else if (!userInfo?.image && !imageData) {
+      } else if (!imageFromBack && !imageData) {
         requestData.append(`image`, null);
       }
 
@@ -298,7 +307,7 @@ const EditProfile = () => {
     >
       <View className="m-4">
         <View className="flex-row items-center justify-center gap-5 mb-3">
-          {userInfo.image?.includes("uploads") || imageData ? (
+          {imageFromBack?.includes("uploads") || imageData ? (
             <View style={styles.imageBorder}>
               <Image
                 source={{

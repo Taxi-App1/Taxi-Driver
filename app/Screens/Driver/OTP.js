@@ -78,13 +78,16 @@ const OTP = ({ route }) => {
     } else if (index < fields.length - 1 && text !== "") {
       inputRefs.current[index + 1].focus(); // Shift focus to the next input field
     }
+
+    if (index === 3 && text !== "") {
+      checkOtpValidation(); // Call the checkOtpValidation function
+    }
   };
 
   const handleResend = async () => {
     setResend(true);
   };
 
-  console.log("otp", otp);
   const checkOtpValidation = async () => {
     try {
       setIsLoading(true);

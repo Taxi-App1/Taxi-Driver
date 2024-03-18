@@ -6,7 +6,8 @@ import axios from "axios";
 
 const DeleteAccount = () => {
   const { i18n } = i18nStore;
-  const { userInfo, setUserToken, setUserInfo, setLoading } = authStore;
+
+  const { userInfo, setUserToken, setUserInfo, setLoading, logout } = authStore;
 
   const handleAlertDeleteAccount = () => {
     Alert.alert(
@@ -36,13 +37,15 @@ const DeleteAccount = () => {
         `${process.env.EXPO_PUBLIC_API_URL}driver/deleteDriver/${userInfo._id}`
       );
 
+      logout();
+
       setUserToken(null);
 
       setUserInfo(null);
 
       setLoading(false);
     } catch (error) {
-      console.log("handel submit sign up error", error);
+      console.log("handel delete account error", error);
       Toast.show({
         type: "error",
         text1: error.message,

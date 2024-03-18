@@ -10,9 +10,12 @@ import { colors } from "../../ReusableTools/css";
 import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { Image } from "react-native";
+import { authStore } from "../../MobX/AuthStore";
 
 const SignUp = ({ navigation }) => {
   const { i18n } = i18nStore;
+
+  const { login } = authStore;
 
   const [imageData, setImageData] = useState(null);
 
@@ -90,7 +93,7 @@ const SignUp = ({ navigation }) => {
         error: error.phone,
         keyboardType: "numeric",
         ref: phoneRef,
-        onSubmitEditing: () => carTypeRef.current.focus(),
+        onSubmitEditing: () => passwordRef.current.focus(),
       },
       {
         placeholder: `${i18n.t("signUpDriver.input.password.placeholder")}`,
@@ -155,7 +158,7 @@ const SignUp = ({ navigation }) => {
         value: data.plate_number,
         key: "plate_number",
         error: error.plate_number,
-        ref: carTypeRef,
+        ref: plateNumberRef,
         onSubmitEditing: () => handleSubmit(),
       },
     ];
@@ -262,9 +265,15 @@ const SignUp = ({ navigation }) => {
         requestData
       );
 
-      navigation.navigate(`${i18n.t("signNav.signIn")}`, {
-        phone: data.phone,
+      await login({
+        phone_number: removeSpaces(numberWithoutSpaces),
         password: data.password,
+      });
+
+      navigation.navigate(`otp`, {
+        phone: data.phone,
+        user_id: resp.data._id,
+        login: true,
       });
 
       setData({
