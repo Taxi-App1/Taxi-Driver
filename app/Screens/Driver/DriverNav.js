@@ -27,18 +27,20 @@ const DriverNav = () => {
   const { userInfo } = authStore;
 
   useEffect(() => {
-    const getDriverData = async () => {
-      try {
-        await axios.get(
-          `${process.env.EXPO_PUBLIC_API_URL}driver/getDriverByPhone${userInfo?.phone_number}`
-        );
-      } catch (error) {
-        console.log("Error getting driver data", error.message);
-      }
-    };
+    if (userInfo.has_access !== true) {
+      const getDriverData = async () => {
+        try {
+          await axios.get(
+            `${process.env.EXPO_PUBLIC_API_URL}driver/getDriverByPhone${userInfo?.phone_number}`
+          );
+        } catch (error) {
+          console.log("Error getting driver data", error.message);
+        }
+      };
 
-    getDriverData();
-  }, []);
+      getDriverData();
+    }
+  }, [userInfo]);
 
   const DrawerScreens = ({}) => {
     return (
