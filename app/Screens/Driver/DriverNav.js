@@ -14,12 +14,31 @@ import Support from "./Support";
 import Chat from "./Chat";
 import OTP from "./OTP";
 import EditProfile from "./EditProfile";
+import { useEffect } from "react";
+import axios from "axios";
+import { authStore } from "../../MobX/AuthStore";
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 const DriverNav = () => {
   const { i18n } = i18nStore;
+
+  const { userInfo } = authStore;
+
+  useEffect(() => {
+    const getDriverData = async () => {
+      try {
+        await axios.get(
+          `${process.env.EXPO_PUBLIC_API_URL}driver/getDriverByPhone${userInfo?.phone_number}`
+        );
+      } catch (error) {
+        console.log("Error getting driver data", error.message);
+      }
+    };
+
+    getDriverData();
+  }, []);
 
   const DrawerScreens = ({}) => {
     return (
@@ -43,7 +62,7 @@ const DriverNav = () => {
             return (
               <HeaderTitle
                 title={route.name}
-                isDrawer={true} 
+                isDrawer={true}
                 isChat={
                   route.name === `${i18n.t("userNav.screens.chat")}`
                     ? true
