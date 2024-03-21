@@ -11,9 +11,13 @@ import { authStore } from "../../MobX/AuthStore";
 import { useState } from "react";
 import { colors } from "../../ReusableTools/css";
 import TripCard from "../../Components/TripCard";
+import { i18nStore } from "../../MobX/I18nStore";
+import { observer } from "mobx-react";
 
 const Orders = () => {
   const [refreshing, setRefreshing] = useState(false);
+
+  const { i18n } = i18nStore;
 
   const { userInfo } = authStore;
 
@@ -39,7 +43,7 @@ const Orders = () => {
   if (data?.length === 0 || data === null) {
     return (
       <View className="flex-1 justify-center items-center">
-        <Text className="text-base font-regular">No orders yet.</Text>
+        <Text className="text-base font-regular">{i18n.t("noOrders")}.</Text>
       </View>
     );
   }
@@ -67,6 +71,6 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default observer(Orders);
 
 const styles = StyleSheet.create({});

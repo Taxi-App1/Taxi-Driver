@@ -190,6 +190,7 @@ export const translations = {
         canceled: "Ride canceled",
       },
     },
+    noOrders: "No orders yet.",
   },
   ar: {
     cancel: "إلغاء",
@@ -381,5 +382,6 @@ export const translations = {
         canceled: "رحلة ملتغية",
       },
     },
+    noOrders: "لا توجد طلبات حتى الآن.",
   },
 };

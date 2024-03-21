@@ -2,7 +2,7 @@ export default {
   expo: {
     name: "Wobble Driver",
     slug: "Wobble-Driver",
-    version: "1.0.2",
+    version: "1.0.3",
     orientation: "portrait",
     icon: "./assets/icon.png",
     userInterfaceStyle: "light",
@@ -21,7 +21,7 @@ export default {
       config: {
         googleMapsApiKey: process.env.EXPO_PUBLIC_MAP_API_KEY,
       },
-      buildNumber: "3",
+      buildNumber: "4",
     },
     android: {
       package: "com.pickmeup01.WobbleDriver",
