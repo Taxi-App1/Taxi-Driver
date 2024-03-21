@@ -11,6 +11,7 @@ import * as ImagePicker from "expo-image-picker";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 import { Image } from "react-native";
 import { authStore } from "../../MobX/AuthStore";
+import { showToast } from "../../ReusableTools/ShowToast";
 
 const SignUp = ({ navigation }) => {
   const { i18n } = i18nStore;
@@ -141,6 +142,7 @@ const SignUp = ({ navigation }) => {
         placeholder: `${i18n.t("signUpDriver.input.year.placeholder")}`,
         value: data.car_year,
         key: "car_year",
+        keyboardType: "numeric",
         error: error.car_year,
         ref: carYearRef,
         onSubmitEditing: () => carColorRef.current.focus(),
@@ -157,6 +159,7 @@ const SignUp = ({ navigation }) => {
         placeholder: `${i18n.t("signUpDriver.input.plate_number.placeholder")}`,
         value: data.plate_number,
         key: "plate_number",
+        keyboardType: "numeric",
         error: error.plate_number,
         ref: plateNumberRef,
         onSubmitEditing: () => handleSubmit(),
@@ -260,7 +263,7 @@ const SignUp = ({ navigation }) => {
         requestData.append(`has_access`, true);
       }
 
-      await axios.post(
+      const resp = await axios.post(
         `${process.env.EXPO_PUBLIC_API_URL}driver/registerDriver`,
         requestData
       );
@@ -430,6 +433,12 @@ const SignUp = ({ navigation }) => {
           text2: `${i18n.t("toast.error.submissionFailedSubTitle")}`,
         });
         setSubmitting(false);
+        return;
+      }
+
+      if (!imageData) {
+        showToast("error", `${i18n.t("toast.error.emptyImage")}`);
+
         return;
       }
 

@@ -5,6 +5,7 @@ import AccountRecovery from "./AccountRecovery";
 import ChangePassword from "./ChangePassword";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
+import OTP from "../Driver/OTP";
 
 const Stack = createStackNavigator();
 
@@ -58,6 +59,14 @@ const SignNav = () => {
           cardStyle: {
             backgroundColor: "white",
           },
+        }}
+      />
+
+      <Stack.Screen
+        name={`otp`}
+        component={OTP}
+        options={{
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

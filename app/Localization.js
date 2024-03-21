@@ -80,7 +80,7 @@ export const translations = {
         },
       },
       addImage: {
-        text: "Add your profile image(optional):",
+        text: "Add your profile image:",
         textButton: "Select Image",
       },
       button: {
@@ -102,6 +102,7 @@ export const translations = {
         emptyFields: "Please fill all fields",
         submissionFailedTitle: "Form submission failed",
         submissionFailedSubTitle: "Please check the errors and try again.",
+        emptyImage: "Please enter your image",
       },
       success: {
         registered: "Registered successfully",
@@ -191,6 +192,10 @@ export const translations = {
       },
     },
     noOrders: "No orders yet.",
+    otp: {
+      enterCode: "Enter Code",
+      resendCode: "Resend Code",
+    },
   },
   ar: {
     cancel: "إلغاء",
@@ -271,7 +276,7 @@ export const translations = {
         },
       },
       addImage: {
-        text: ":أضف صورتك الشخصية(إختياري)",
+        text: ":أضف صورتك الشخصية",
         textButton: "إختر صورة",
       },
       button: {
@@ -294,6 +299,7 @@ export const translations = {
         submissionFailedTitle: "فشل الإرسال",
         submissionFailedSubTitle:
           "الرجاء التأكد من الأخطاء وإعادة الإرسال مجدداً",
+        emptyImage: "الرجاء إدخال صورتك",
       },
       success: {
         registered: "تم إنشاء الحساب",
@@ -383,5 +389,9 @@ export const translations = {
       },
     },
     noOrders: "لا توجد طلبات حتى الآن.",
+    otp: {
+      enterCode: "أدخل الرمز",
+      resendCode: "إعادة إرسال الرمز",
+    },
   },
 };

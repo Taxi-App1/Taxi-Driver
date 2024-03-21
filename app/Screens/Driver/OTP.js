@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Image,
   StyleSheet,
@@ -93,14 +93,14 @@ const OTP = ({ route }) => {
       setIsLoading(true);
 
       const resp = await axios.get(
-        `${process.env.EXPO_PUBLIC_API_URL}user/getUserByPhone/${phone}`
+        `${process.env.EXPO_PUBLIC_API_URL}driver/getDriverByPhone/${phone}`
       );
 
       if (resp.data.otp == otp) {
         setIsLoading(false);
 
         await axios.post(
-          `${process.env.EXPO_PUBLIC_API_URL}user/updateUser/${user_id}`,
+          `${process.env.EXPO_PUBLIC_API_URL}driver/updateDriver/${user_id}`,
           {
             has_access: true,
           }
@@ -151,7 +151,7 @@ const OTP = ({ route }) => {
           </TouchableOpacity>
         </View>
 
-        <View className="flex-1 mx-10 mt-5 justify-between items-center">
+        <View className="flex-1 mx-10 mt-5 items-center">
           <View>
             <View className="bg-headers rounded-2xl py-5 items-center mb-10">
               <Text className="text-[25px] font-regular">
@@ -191,7 +191,7 @@ const OTP = ({ route }) => {
             <Button
               text={
                 isLoading
-                  ? `${i18n.t("signUpUser.button.submitting")}`
+                  ? `${i18n.t("signUpDriver.button.submitting")}`
                   : ` ${i18n.t("submit")}`
               }
               onPress={checkOtpValidation}

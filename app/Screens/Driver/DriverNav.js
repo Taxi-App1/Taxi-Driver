@@ -24,15 +24,19 @@ const Stack = createStackNavigator();
 const DriverNav = () => {
   const { i18n } = i18nStore;
 
-  const { userInfo } = authStore;
+  const { userInfo, logout } = authStore;
 
   useEffect(() => {
     if (userInfo.has_access !== true) {
       const getDriverData = async () => {
         try {
-          await axios.get(
-            `${process.env.EXPO_PUBLIC_API_URL}driver/getDriverByPhone${userInfo?.phone_number}`
+          const resp = await axios.get(
+            `${process.env.EXPO_PUBLIC_API_URL}driver/getDriverByPhone/${userInfo?.phone_number}`
           );
+
+          if (resp.data.length === 0 || resp.data.length === null) {
+            logout();
+          }
         } catch (error) {
           console.log("Error getting driver data", error.message);
         }
@@ -40,7 +44,7 @@ const DriverNav = () => {
 
       getDriverData();
     }
-  }, [userInfo]);
+  }, []);
 
   const DrawerScreens = ({}) => {
     return (

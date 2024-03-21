@@ -14,11 +14,11 @@ import Toast from "react-native-toast-message";
 import { useEffect, useRef, useState } from "react";
 import { authStore } from "../../MobX/AuthStore";
 import { ReusableInput } from "../../ReusableTools/ReusableInput";
+import { observer } from "mobx-react";
 
 const SignIn = ({ navigation, route }) => {
-  const { login } = authStore;
+  const { login, loginResponse, loading } = authStore;
   const { i18n, changeLocale, locale } = i18nStore;
-  // const { i18n, changeLocale, locale } = useContext(I18nContext);
 
   useEffect(() => {
     // Check if there are route.params for phone and password and set them as initial values.
@@ -72,6 +72,14 @@ const SignIn = ({ navigation, route }) => {
       });
 
       setSubmitting(false);
+
+      if (loginResponse && loginResponse.findDriver.has_access === false) {
+        navigation.navigate(`otp`, {
+          phone: data.phone_number,
+          user_id: loginResponse.findDriver._id,
+          login: true,
+        });
+      }
     } catch (error) {
       setSubmitting(false);
 
@@ -140,6 +148,7 @@ const SignIn = ({ navigation, route }) => {
                   : `${i18n.t("signInDriver.signIn")}`
               }
               onPress={handleLogin}
+              loading={loading}
               disabled={submitting}
             />
 
@@ -211,4 +220,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SignIn;
+export default observer(SignIn);
