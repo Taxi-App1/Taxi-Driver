@@ -189,6 +189,7 @@ export const translations = {
       ride: {
         completed: "Ride completed",
         canceled: "Ride canceled",
+        pending: "Penfing",
       },
     },
     noOrders: "No orders yet.",
@@ -386,6 +387,7 @@ export const translations = {
       ride: {
         completed: "رحلة مكتملة",
         canceled: "رحلة ملتغية",
+        pending: "معلقة",
       },
     },
     noOrders: "لا توجد طلبات حتى الآن.",

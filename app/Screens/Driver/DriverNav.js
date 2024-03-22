@@ -24,7 +24,7 @@ const Stack = createStackNavigator();
 const DriverNav = () => {
   const { i18n } = i18nStore;
 
-  const { userInfo, logout } = authStore;
+  const { userInfo, logout, setUserInfo } = authStore;
 
   useEffect(() => {
     if (userInfo.has_access !== true) {
@@ -33,6 +33,8 @@ const DriverNav = () => {
           const resp = await axios.get(
             `${process.env.EXPO_PUBLIC_API_URL}driver/getDriverByPhone/${userInfo?.phone_number}`
           );
+
+          setUserInfo(resp.data.findDriver);
 
           if (resp.data.length === 0 || resp.data.length === null) {
             logout();
