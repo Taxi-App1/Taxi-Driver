@@ -2,6 +2,7 @@ import { action, makeObservable, observable, runInAction } from "mobx";
 import axios from "axios";
 import Toast from "react-native-toast-message";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { showToast } from "../ReusableTools/ShowToast";
 
 class AuthStore {
   userInfo = null;
@@ -52,7 +53,11 @@ class AuthStore {
         data
       );
 
-      if (resp.data.message === "Please enter your password!") {
+      if (resp.data.status === 400 || resp.data.status === 404) {
+        this.setLoading(false);
+
+        showToast("error", resp.data.message);
+
         return;
       }
 
