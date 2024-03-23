@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Text, TextInput, StyleSheet } from "react-native";
 import { colors } from "./css";
+import { i18nStore } from "../MobX/I18nStore";
 
 export const ReusableInput = React.forwardRef(
   (
@@ -25,6 +26,8 @@ export const ReusableInput = React.forwardRef(
     },
     ref
   ) => {
+    const { locale } = i18nStore;
+    
     return (
       <View style={styles.inputContainer}>
         <View className="flex-row items-center">
@@ -35,7 +38,10 @@ export const ReusableInput = React.forwardRef(
             />
           </View>
           <TextInput
-            style={styles.inputField}
+            style={[
+              styles.inputField,
+              { textAlign: locale.includes("ar") ? "right" : "left" },
+            ]}
             ref={ref}
             value={value}
             keyboardType={keyboardType}

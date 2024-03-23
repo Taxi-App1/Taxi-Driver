@@ -52,6 +52,7 @@ class AuthStore {
         `${process.env.EXPO_PUBLIC_API_URL}driver/login`,
         data
       );
+      console.log(resp.data);
 
       if (resp.data.status === 400 || resp.data.status === 404) {
         this.setLoading(false);

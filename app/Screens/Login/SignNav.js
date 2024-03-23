@@ -6,6 +6,7 @@ import ChangePassword from "./ChangePassword";
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 import OTP from "../Driver/OTP";
+import { observer } from "mobx-react";
 
 const Stack = createStackNavigator();
 
@@ -73,4 +74,4 @@ const SignNav = () => {
   );
 };
 
-export default SignNav;
+export default observer(SignNav);

@@ -2,7 +2,7 @@ export default {
   expo: {
     name: "Wobble Driver",
     slug: "Wobble-Driver",
-    version: "1.0.3",
+    version: "1.0.4",
     orientation: "portrait",
     icon: "./assets/icon.png",
     userInterfaceStyle: "light",
@@ -15,13 +15,10 @@ export default {
     ios: {
       supportsTablet: true,
       bundleIdentifier: "com.pickmeup01.WobbleDriver",
-      infoPlist: {
-        ExpoLocalization_supportsRTL: true,
-      },
       config: {
         googleMapsApiKey: process.env.EXPO_PUBLIC_MAP_API_KEY,
       },
-      buildNumber: "4",
+      buildNumber: "5",
     },
     android: {
       package: "com.pickmeup01.WobbleDriver",
@@ -39,9 +36,7 @@ export default {
     web: {
       favicon: "./assets/favicon.png",
     },
-    plugins: ["expo-localization"],
     extra: {
-      supportsRTL: true,
       eas: {
         projectId: "d4b9a07a-0ef0-40db-8d56-42c41c8dfaa9",
       },
